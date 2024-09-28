@@ -24,7 +24,7 @@ export async function savePatientInformation(data) {
         gender: data.gender || "",
         country: data.country || "",
         languagesSpoken: data.languagesSpoken || [],
-        photoIDFile: null,
+        photoIDFile: null
     });
 
     await patient.save();
