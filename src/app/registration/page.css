@@ -1,0 +1,13 @@
+.profile-card {
+    background-color: white;
+    color: black;
+    border-color: #7B1FA2;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  .profile-card:hover {
+    background-color: #7B1FA2; /* Purple background on hover */
+    color: white; /* White text on hover */
+    border-color: #7B1FA2; /* Ensure the border stays purple */
+  }
+  

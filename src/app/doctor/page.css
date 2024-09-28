@@ -1,0 +1,16 @@
+.gradient-text {
+    background: linear-gradient(45deg, #7B1FA2, #2196F3);
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.btn-gradient {
+    background: linear-gradient(45deg, #7B1FA2, #2196F3);
+    color: white;
+    border: none;
+}
+
+.btn-gradient:hover {
+    background: linear-gradient(45deg, #5e35b1, #1e88e5);
+    color: white;
+}
