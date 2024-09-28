@@ -15,7 +15,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       const existingUser = await User.findOne({ userId: user.id });
 
       if (!existingUser) {
-        console.log("Creating a new user");
         await User.create({
           userId: user.id
         });

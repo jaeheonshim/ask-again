@@ -13,6 +13,8 @@ export default function Registration() {
         setUserType(selectedUserType).then(() => {
             if(selectedUserType == 'doctor') {
                 router.push('/doctor');
+            } else if(selectedUserType == 'patient') {
+                router.push('/patient');
             }
         });
     }
