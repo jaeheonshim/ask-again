@@ -14,7 +14,9 @@ export default async function Home() {
     if (!userModel.userType) {
       redirect("/registration");
     } else if (userModel.userType === "doctor") {
-      redirect("/doctor/");
+      redirect("/doctor");
+    } else if (userModel.userType === "patient") {
+      redirect("/patient");
     }
   }
 
