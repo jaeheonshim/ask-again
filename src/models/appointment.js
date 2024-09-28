@@ -2,12 +2,13 @@ import { addHours, addWeeks, startOfWeek } from "date-fns";
 import mongoose, { Schema } from "mongoose";
 import { ObjectId } from "mongodb";
 import Doctor from "./doctor";
+import Patient from "./patient";
 
 const appointmentSchema = new Schema({
   patient: {
     type: ObjectId,
     required: true,
-    ref: 'Patient'
+    ref: Patient
   },
   doctor: {
     type: ObjectId,

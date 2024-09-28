@@ -1,27 +1,38 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useParams, useRouter, useSearchParams } from "next/navigation"; // Import useRouter
 import AppointmentCalendar from "@/components/AppointmentCalendar";
-import PastAppointmentsCalendar from "@/components/PastAppointmentsCalender"; 
+import PastAppointmentsCalendar from "@/components/PastAppointmentsCalender";
 
 export default function PatientDashboard() {
-    const [activeTab, setActiveTab] = useState('upcoming'); // Track which tab is active
+    const [activeTab, setActiveTab] = useState('upcoming');
+    const router = useRouter();
+    const params = useSearchParams();
+
+    // Extract startDate from query parameters
+    const newappt = params.get("newappt")
 
     return (
         <div className="container-fluid mt-4">
+            {newappt && <div class="alert alert-success" role="alert">
+                A new consultation has been scheduled!
+            </div>
+            }
+
             {/* Bootstrap Nav Tabs */}
             <ul className="nav nav-tabs">
                 <li className="nav-item">
-                    <button 
-                        className={`nav-link ${activeTab === 'upcoming' ? 'active' : ''}`} 
+                    <button
+                        className={`nav-link ${activeTab === 'upcoming' ? 'active' : ''}`}
                         onClick={() => setActiveTab('upcoming')}
                     >
                         Upcoming
                     </button>
                 </li>
                 <li className="nav-item">
-                    <button 
-                        className={`nav-link ${activeTab === 'past' ? 'active' : ''}`} 
+                    <button
+                        className={`nav-link ${activeTab === 'past' ? 'active' : ''}`}
                         onClick={() => setActiveTab('past')}
                     >
                         Past
@@ -33,7 +44,8 @@ export default function PatientDashboard() {
             <div className="tab-content mt-3">
                 {activeTab === 'upcoming' && (
                     <div className="tab-pane fade show active">
-                        <AppointmentCalendar />
+                        {/* Pass the startDate prop to the AppointmentCalendar */}
+                        <AppointmentCalendar startDate={new Date(decodeURIComponent(newappt))}/>
                     </div>
                 )}
                 {activeTab === 'past' && (

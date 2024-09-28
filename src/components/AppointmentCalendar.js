@@ -5,12 +5,14 @@ import { getAppointmentsByDateRange } from "@/actions/getAppointmentByDateRange"
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-export default function AppointmentCalendar() {
-    const [currentWeek, setCurrentWeek] = useState(startOfWeek(new Date(), { weekStartsOn: 1 }));
+export default function AppointmentCalendar({ startDate }) {
+    // Initialize currentWeek with either the passed startDate or the current date's week
+    const initialWeek = startOfWeek(startDate ? new Date(startDate) : new Date(), { weekStartsOn: 1 });
+    const [currentWeek, setCurrentWeek] = useState(initialWeek);
     const [appointments, setAppointments] = useState([]);
     const [isCalendarOpen, setIsCalendarOpen] = useState(false);
 
-    // Get the start of the current week
+    // Get the start of the current week (used to restrict past weeks)
     const today = startOfWeek(new Date(), { weekStartsOn: 1 });
 
     // Extract dates of events to highlight them in the calendar
@@ -50,6 +52,14 @@ export default function AppointmentCalendar() {
 
         fetchAppointments();
     }, [currentWeek]);
+
+    // Update the week if startDate prop changes
+    useEffect(() => {
+        if (startDate) {
+            const newWeek = startOfWeek(new Date(startDate), { weekStartsOn: 1 });
+            setCurrentWeek(newWeek);
+        }
+    }, [startDate]);
 
     return (
         <div>
