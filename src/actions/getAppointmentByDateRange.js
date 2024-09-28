@@ -31,7 +31,8 @@ export async function getAppointmentsByDateRange({ start, end }) {
                 start: { $gte: startDate, $lt: endDate },
                 patient: patient
             })
-                .populate('doctor') // Populate the doctor field
+                .populate('doctor')
+                .populate('patient') // Populate the doctor field
                 .lean();
         } else if(userModel.userType === "doctor") {
             const doctor = await Doctor.findOne({ userId: user.id });
@@ -41,7 +42,8 @@ export async function getAppointmentsByDateRange({ start, end }) {
                 start: { $gte: startDate, $lt: endDate },
                 doctor: doctor
             })
-                .populate('doctor') // Populate the doctor field
+                .populate('doctor')
+                .populate('patient')
                 .lean();
         } else {
             return;
