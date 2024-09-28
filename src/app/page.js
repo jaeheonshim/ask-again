@@ -1,16 +1,19 @@
 import { auth, signIn } from "@/auth";
 import { SignIn } from "@/components/auth/SignInButton";
+import User from "@/models/user";
 import Image from "next/image";
+import { redirect } from "next/navigation";
 
 export default async function Home() {
   const session = await auth();
 
   if(session?.user) {
-    const user = session.user;
-    return <div>
-      <div>User Name: {user.name}</div>
-      <div>User Email: {user.email}</div>
-    </div>
+    const userModel = await User.findOne({ userId: session.user.id });
+    if(!userModel.userType) {
+      redirect("/registration");
+    } else if(userModel.userType === "doctor") {
+      redirect("/doctor/");
+    }
   }
 
   return (

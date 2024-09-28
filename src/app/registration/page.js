@@ -1,66 +1,66 @@
-'use client'
+"use client"
 
-import { auth } from "@/auth";
-import User from "@/models/user";
-import connectMongo from "@/mongoose";
 import { useEffect, useState } from "react";
+import { getUserType, setUserType } from "./actions";
+import { useRouter } from "next/navigation";
 
-const SET_USER_TYPE = "SET_USER_TYPE";
+export default function Registration() {
+    const router = useRouter();
+    const [selectedUserType, setSelectedUserType] = useState('doctor');
+    const [isLoaded, setIsLoaded] = useState(false);
 
-export default async function Registration() {
-    await connectMongo();
-    const session = await auth();
-    if (!session?.user) return null;
-    const user = session.user;
-
-    const [registrationState, setRegistrationState] = useState(null);
-
-    if (registrationState == SET_USER_TYPE) {
-        return (
-            <form>
-                <label>
-                    <input
-                        name="userType"
-                        type="radio"
-                        value="doctor"
-                    />
-                    Doctor
-                </label>
-                <label>
-                    <input
-                        name="userType"
-                        type="radio"
-                        value="patient"
-                    />
-                    Patient
-                </label>
-                <br />
-                <button type="submit">Continue</button>
-            </form>
-        )
+    function handleSubmit(event) {
+        setUserType(selectedUserType).then(() => {
+            if(selectedUserType == 'doctor') {
+                router.push('/doctor');
+            }
+        });
     }
 
+    useEffect(() => {
+        async function verifyUserType() {
+            const userType = await getUserType();
+            if (userType) {
+                if (userType === 'doctor') {
+                    router.push('/doctor');
+                } else if (userType === 'patient') {
+                    router.push('/patient');
+                }
+            }
+
+            setIsLoaded(true);
+        }
+
+        verifyUserType();
+    }, []);
+
+    if(!isLoaded) return null;
+
     return (
-        <div style={{ maxWidth: '400px', margin: 'auto', padding: '20px' }}>
-            <h2>Choose role</h2>
-            <form>
-                <div>
-                    <label>
-                        <input
-                            type="radio"
-                            value="doctor"
+        <div>
+            <h2>Welcome! Please choose your user type:</h2>
+            <form action={handleSubmit}>
+                <div className="d-flex justify-content-center gap-3">
+                    <div onClick={() => setSelectedUserType("doctor")} className={(selectedUserType == 'doctor' ? "bg-primary " : "") + "p-4 rounded"} style={{ cursor: 'pointer' }}>
+                        <img
+                            src="/path/to/doctor-image.png"
+                            alt="Doctor"
+                            className="img-fluid"
+                            style={{ width: '100px', height: '100px' }}
                         />
-                        Doctor
-                    </label>
-                    <label>
-                        <input
-                            type="radio"
-                            value="patient"
+                        <p>I'm a doctor</p>
+                    </div>
+                    <div onClick={() => setSelectedUserType("patient")} className={(selectedUserType == 'patient' ? "bg-primary " : "") + "p-4 rounded"} style={{ cursor: 'pointer' }}>
+                        <img
+                            src="/path/to/patient-image.png"
+                            alt="Patient"
+                            className="img-fluid"
+                            style={{ width: '100px', height: '100px' }}
                         />
-                        Patient
-                    </label>
+                        <p>I'm a patient</p>
+                    </div>
                 </div>
-                <button type="submit">Register</button>
+                <button type="submit" className="mt-3">Continue</button>
             </form>
         </div>
     );
