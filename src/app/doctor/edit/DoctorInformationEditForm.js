@@ -5,6 +5,7 @@ import Select from 'react-select';
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
 import { saveDoctor } from './actions';
+import { useRouter } from 'next/navigation';
 
 const genderOptions = [
   { value: 'Male', label: 'Male' },
@@ -116,7 +117,9 @@ const boardCertificationOptions = [
   // Add more certifications as needed
 ];
 
-const DoctorRegistrationForm = ({doctor}) => {
+const DoctorInformationEditForm = ({userId, doctor}) => {
+  const router = useRouter();
+
   const [formData, setFormData] = useState({
     // Basic Information
     firstName: doctor?.firstName || '',
@@ -180,7 +183,9 @@ const DoctorRegistrationForm = ({doctor}) => {
       // Exclude file data for now
     };
 
-    saveDoctor(doctor.userId, submissionData);
+    saveDoctor(userId, submissionData).then(() => {
+      router.push('/doctor/');
+    });
   };
 
   return (
@@ -311,9 +316,7 @@ const DoctorRegistrationForm = ({doctor}) => {
             <Select
               name="speciality"
               options={specialityOptions}
-              onChange={(option) =>
-                setFormData({ ...formData, speciality: option.value })
-              }
+              onChange={handleSelectChange}
               value={formData.speciality}
               placeholder="Select Speciality"
               styles={customSelectStyles}
@@ -484,4 +487,4 @@ const customSelectStyles = {
   }),
 };
 
-export default DoctorRegistrationForm;
+export default DoctorInformationEditForm;

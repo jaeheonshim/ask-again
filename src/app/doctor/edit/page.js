@@ -1,5 +1,5 @@
 import { auth } from '@/auth';
-import DoctorRegistrationForm from './DoctorRegistrationForm';
+import DoctorInformationEditForm from './DoctorInformationEditForm';
 import connectMongo from '@/mongoose';
 import Doctor from '@/models/doctor';
 
@@ -9,11 +9,11 @@ const DoctorRegistrationPage = async () => {
 
   if(!session.user) return null;
 
-  const doctor = await Doctor.findOne({userId: "66f75c6d198f7959d989b847"})
+  const doctor = await Doctor.findOne({userId: session.user.id});
 
   return (
     <div>
-      <DoctorRegistrationForm doctor={JSON.parse(JSON.stringify(doctor))} />
+      <DoctorInformationEditForm userId={session.user.id} doctor={JSON.parse(JSON.stringify(doctor))} />
     </div>
   );
 };
