@@ -4,7 +4,7 @@ import { ObjectId } from "mongodb";
 
 const userSchema = new Schema({
     userId: {
-        type: ObjectId
+        type: String
     },
     userType: {
         type: String,
