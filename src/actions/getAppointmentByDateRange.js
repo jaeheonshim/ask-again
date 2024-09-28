@@ -1,29 +1,43 @@
-"use server"
+"use server";
 
 import connectMongo from "@/mongoose";
 import Appointment from "@/models/appointment";
 import { startOfDay, endOfDay } from "date-fns";
 
 export async function getAppointmentsByDateRange({ start, end }) {
+    // Connect to MongoDB and log the connection status
+    console.log("Connecting to MongoDB...");
     await connectMongo();
+    console.log("Connected to MongoDB.");
 
-    // Adjust start and end to cover the entire days
+    // Ensure the start and end dates cover the entire days
     const startDate = startOfDay(new Date(start));
     const endDate = endOfDay(new Date(end));
 
-    const appointments = await Appointment.find({
-        start: { $gte: startDate, $lt: endDate },
-    })
-        .populate('doctor')
-        .lean(); // Use lean() for performance and to return plain objects
+    console.log("Fetching appointments between:", startDate, "and", endDate);
 
-    // Serialize ObjectId and Date fields
-    const serializedAppointments = appointments.map(appointment => ({
-        ...appointment,
-        _id: appointment._id.toString(),  // Convert ObjectId to string
-        start: appointment.start.toISOString(),  // Convert Date to ISO string
-        end: appointment.end.toISOString(),  // Convert Date to ISO string
-    }));
+    try {
+        const appointments = await Appointment.find({
+            start: { $gte: startDate, $lt: endDate },
+        })
+        .populate('doctor') // Populate the doctor field
+        .lean();
 
-    return JSON.parse(JSON.stringify(serializedAppointments));
+        console.log("Fetched appointments:", appointments); // Log fetched appointments
+
+        // Serialize ObjectId and Date fields
+        const serializedAppointments = appointments.map(appointment => ({
+            ...appointment,
+            _id: appointment._id.toString(),
+            start: appointment.start.toISOString(),
+            end: appointment.end.toISOString(),
+        }));
+
+        console.log("Serialized appointments:", serializedAppointments);
+
+        return JSON.parse(JSON.stringify(serializedAppointments));
+    } catch (error) {
+        console.error("Error fetching appointments:", error);
+        throw error;
+    }
 }
