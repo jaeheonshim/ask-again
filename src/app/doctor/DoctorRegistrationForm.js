@@ -14,10 +14,7 @@ const DoctorRegistrationForm = () => {
     gender: '',
     email: '',
     phoneNumber: '',
-    address: '',
     city: '',
-    state: '',
-    zipCode: '',
     country: '',
     // Professional Information
     languagesSpoken: [],
@@ -35,7 +32,6 @@ const DoctorRegistrationForm = () => {
     // Additional Details
     telemedicineAvailable: false,
     consultationFee: '',
-    consultationMethods: [],
   });
 
   // Options for select inputs
@@ -47,10 +43,94 @@ const DoctorRegistrationForm = () => {
 
   const languageOptions = [
     { value: 'English', label: 'English' },
+    { value: 'Mandarin Chinese', label: 'Mandarin Chinese' },
     { value: 'Spanish', label: 'Spanish' },
+    { value: 'Hindi', label: 'Hindi' },
+    { value: 'Arabic', label: 'Arabic' },
+    { value: 'Bengali', label: 'Bengali' },
+    { value: 'Portuguese', label: 'Portuguese' },
+    { value: 'Russian', label: 'Russian' },
+    { value: 'Japanese', label: 'Japanese' },
+    { value: 'Punjabi', label: 'Punjabi' },
+    { value: 'German', label: 'German' },
+    { value: 'Javanese', label: 'Javanese' },
+    { value: 'Wu (Shanghainese)', label: 'Wu (Shanghainese)' },
+    { value: 'Malay', label: 'Malay' },
+    { value: 'Telugu', label: 'Telugu' },
+    { value: 'Vietnamese', label: 'Vietnamese' },
+    { value: 'Korean', label: 'Korean' },
     { value: 'French', label: 'French' },
+    { value: 'Marathi', label: 'Marathi' },
+    { value: 'Tamil', label: 'Tamil' },
+    { value: 'Urdu', label: 'Urdu' },
+    { value: 'Turkish', label: 'Turkish' },
+    { value: 'Italian', label: 'Italian' },
+    { value: 'Cantonese', label: 'Cantonese' },
+    { value: 'Thai', label: 'Thai' },
+    { value: 'Gujarati', label: 'Gujarati' },
+    { value: 'Persian', label: 'Persian' },
+    { value: 'Polish', label: 'Polish' },
+    { value: 'Pashto', label: 'Pashto' },
+    { value: 'Kannada', label: 'Kannada' },
+    { value: 'Malayalam', label: 'Malayalam' },
+    { value: 'Sundanese', label: 'Sundanese' },
+    { value: 'Hausa', label: 'Hausa' },
+    { value: 'Odia', label: 'Odia' },
+    { value: 'Burmese', label: 'Burmese' },
+    { value: 'Ukrainian', label: 'Ukrainian' },
+    { value: 'Bhojpuri', label: 'Bhojpuri' },
+    { value: 'Tagalog', label: 'Tagalog' },
+    { value: 'Yoruba', label: 'Yoruba' },
+    { value: 'Maithili', label: 'Maithili' },
+    { value: 'Uzbek', label: 'Uzbek' },
+    { value: 'Sindhi', label: 'Sindhi' },
+    { value: 'Amharic', label: 'Amharic' },
+    { value: 'Fula', label: 'Fula' },
+    { value: 'Romanian', label: 'Romanian' },
+    { value: 'Oromo', label: 'Oromo' },
+    { value: 'Igbo', label: 'Igbo' },
+    { value: 'Azerbaijani', label: 'Azerbaijani' },
+    { value: 'Dutch', label: 'Dutch' },
+    { value: 'Kurdish', label: 'Kurdish' },
+    { value: 'Serbo-Croatian', label: 'Serbo-Croatian' },
+    { value: 'Malagasy', label: 'Malagasy' },
+    { value: 'Sinhala', label: 'Sinhala' },
+    { value: 'Khmer', label: 'Khmer' },
+    { value: 'Turkmen', label: 'Turkmen' },
+    { value: 'Nepali', label: 'Nepali' },
+    { value: 'Assamese', label: 'Assamese' },
+    { value: 'Madurese', label: 'Madurese' },
+    { value: 'Somali', label: 'Somali' },
+    { value: 'Hungarian', label: 'Hungarian' },
+    { value: 'Czech', label: 'Czech' },
+    { value: 'Greek', label: 'Greek' },
+    { value: 'Swedish', label: 'Swedish' },
+    { value: 'Belarusian', label: 'Belarusian' },
+    { value: 'Zulu', label: 'Zulu' },
+    { value: 'Hebrew', label: 'Hebrew' },
+    { value: 'Danish', label: 'Danish' },
+    { value: 'Finnish', label: 'Finnish' },
+    { value: 'Norwegian', label: 'Norwegian' },
+    { value: 'Slovak', label: 'Slovak' },
+    { value: 'Irish', label: 'Irish' },
+    { value: 'Croatian', label: 'Croatian' },
+    { value: 'Bulgarian', label: 'Bulgarian' },
+    { value: 'Lithuanian', label: 'Lithuanian' },
+    { value: 'Latvian', label: 'Latvian' },
+    { value: 'Slovenian', label: 'Slovenian' },
+    { value: 'Estonian', label: 'Estonian' },
+    { value: 'Macedonian', label: 'Macedonian' },
+    { value: 'Luxembourgish', label: 'Luxembourgish' },
+    { value: 'Icelandic', label: 'Icelandic' },
+    { value: 'Maltese', label: 'Maltese' },
+    { value: 'Welsh', label: 'Welsh' },
+    { value: 'Afrikaans', label: 'Afrikaans' },
+    { value: 'Swahili', label: 'Swahili' },
+    { value: 'Haitian Creole', label: 'Haitian Creole' },
+    { value: 'Esperanto', label: 'Esperanto' },
     // Add more languages as needed
   ];
+  
 
   const specialityOptions = [
     { value: 'General Practitioner', label: 'General Practitioner' },
@@ -63,19 +143,6 @@ const DoctorRegistrationForm = () => {
     { value: 'American Board of Internal Medicine', label: 'American Board of Internal Medicine' },
     { value: 'American Board of Pediatrics', label: 'American Board of Pediatrics' },
     // Add more certifications as needed
-  ];
-
-  const stateOptions = [
-    { value: 'AL', label: 'Alabama' },
-    { value: 'AK', label: 'Alaska' },
-    { value: 'AZ', label: 'Arizona' },
-    // Add all states/provinces
-  ];
-
-  const consultationMethodOptions = [
-    { value: 'In-person', label: 'In-person' },
-    { value: 'Video Call', label: 'Video Call' },
-    { value: 'Phone Call', label: 'Phone Call' },
   ];
 
   // Handle input changes
@@ -116,7 +183,6 @@ const DoctorRegistrationForm = () => {
       // Convert Select options to arrays of values
       languagesSpoken: formData.languagesSpoken.map((option) => option.value),
       boardCertifications: formData.boardCertifications.map((option) => option.value),
-      consultationMethods: formData.consultationMethods.map((option) => option.value),
       hospitalAffiliations: formData.hospitalAffiliations.map((option) => option.label),
     };
 
@@ -211,18 +277,6 @@ const DoctorRegistrationForm = () => {
               inputStyle={{ ...styles.input, color: 'black' }}
             />
           </div>
-          {/* Address */}
-          <div style={styles.inputGroup}>
-            <label style={styles.label}>Address*</label>
-            <input
-              type="text"
-              name="address"
-              value={formData.address}
-              onChange={handleChange}
-              required
-              style={styles.input}
-            />
-          </div>
           {/* City */}
           <div style={styles.inputGroup}>
             <label style={styles.label}>City*</label>
@@ -230,33 +284,6 @@ const DoctorRegistrationForm = () => {
               type="text"
               name="city"
               value={formData.city}
-              onChange={handleChange}
-              required
-              style={styles.input}
-            />
-          </div>
-          {/* State */}
-          <div style={styles.inputGroup}>
-            <label style={styles.label}>State/Province*</label>
-            <Select
-              name="state"
-              options={stateOptions}
-              onChange={(option) =>
-                setFormData({ ...formData, state: option.value })
-              }
-              placeholder="Select State"
-              styles={customSelectStyles}
-              isSearchable
-              required
-            />
-          </div>
-          {/* Zip Code */}
-          <div style={styles.inputGroup}>
-            <label style={styles.label}>Zip/Postal Code*</label>
-            <input
-              type="text"
-              name="zipCode"
-              value={formData.zipCode}
               onChange={handleChange}
               required
               style={styles.input}
@@ -443,19 +470,7 @@ const DoctorRegistrationForm = () => {
               min="0"
             />
           </div>
-          {/* Consultation Methods */}
-          <div style={styles.inputGroup}>
-            <label style={styles.label}>Preferred Consultation Methods*</label>
-            <Select
-              name="consultationMethods"
-              options={consultationMethodOptions}
-              isMulti
-              onChange={handleSelectChange}
-              placeholder="Select Methods"
-              styles={customSelectStyles}
-              required
-            />
-          </div>
+          
         </div>
 
         {/* Submit Button */}
