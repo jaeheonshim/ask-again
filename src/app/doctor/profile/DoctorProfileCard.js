@@ -2,33 +2,27 @@
 
 import Doctor from '@/models/doctor';
 import connectMongo from '@/mongoose';
+import './DoctorProfileCard.css';
 
 async function DoctorProfileCard({ id }) {
   await connectMongo();
 
-  const doctor = await Doctor.findOne({userId: id});
+  const doctor = await Doctor.findOne({ userId: id });
 
   return (
-    <div className="doctor-profile">
-      <h1>Doctor Profile</h1>
-      <div><strong>First Name:</strong> {doctor.firstName}</div>
-      <div><strong>Last Name:</strong> {doctor.lastName}</div>
-      <div><strong>Date of Birth:</strong> {new Date(doctor.dateOfBirth).toLocaleDateString()}</div>
-      <div><strong>Gender:</strong> {doctor.gender}</div>
-      <div><strong>Email:</strong> {doctor.email}</div>
-      <div><strong>Phone Number:</strong> {doctor.phoneNumber}</div>
-      <div><strong>City:</strong> {doctor.city}</div>
-      <div><strong>Country:</strong> {doctor.country}</div>
-      <div><strong>Bio:</strong> {doctor.bio}</div>
-      {/* <div><strong>Languages Spoken:</strong> {doctor.languagesSpoken.join(', ')}</div> */}
-      <div><strong>Speciality:</strong> {doctor.speciality}</div>
-      <div><strong>Years of Experience:</strong> {doctor.yearsOfExperience}</div>
-      <div><strong>Medical School:</strong> {doctor.medicalSchool}</div>
-      {/* <div><strong>Board Certifications:</strong> {doctor.boardCertifications.join(', ')}</div> */}
-      <div><strong>Practice Name:</strong> {doctor.practiceName}</div>
-      {/* <div><strong>Hospital Affiliations:</strong> {doctor.hospitalAffiliations.join(', ')}</div> */}
-      <div><strong>Clinic Name:</strong> {doctor.clinicName}</div>
-      <div><strong>Consultation Fee:</strong> {doctor.consultationFee}</div>
+    <div className="doctor-profile-card">
+      <div className="card-header">
+        <img src="/placeholder-image.png" alt="Doctor Image" className="doctor-image" />
+        <h1 className="card-title">{doctor.firstName} {doctor.lastName}</h1>
+        <h2 className="card-speciality">{doctor.speciality}</h2>
+      </div>
+      <div className="card-about">
+        <h3>About</h3>
+        <p>{doctor.bio}</p>
+        <p><strong>Years of Experience:</strong> {doctor.yearsOfExperience} years</p>
+        <p><strong>Medical School:</strong> {doctor.medicalSchool}</p>
+      </div>
+      <button className="work-together-btn">Consult</button>
     </div>
   );
 };
