@@ -11,7 +11,7 @@ export default async function Home() {
 
   if (session?.user) {
     const userModel = await User.findOne({ userId: session.user.id });
-    if (userModel && !userModel.userType) {
+    if (!userModel || !userModel.userType) {
       redirect("/registration");
     } else if (userModel.userType === "doctor") {
       redirect("/doctor");
