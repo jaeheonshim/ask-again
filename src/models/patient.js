@@ -33,9 +33,10 @@ const patientSchema = new Schema({
     required: false,
   },
   photoIDFile: {
-    type: String,
+    type: String, // Assuming you'll store the file path or URL in a string format
   },
 });
 
-const Patient = mongoose.models.Patient || mongoose.model('Patient', patientSchema);
+// Export the model
+const Patient = mongoose.models.Patient || mongoose.model('Patient', PatientSchema);
 export default Patient;
