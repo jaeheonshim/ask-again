@@ -74,7 +74,7 @@ export default function ConfirmDocModal({ doctor }) {
     if(!validateData()) return;
 
     createAppointment(doctor._id, startDate, endDate).then(() => {
-      router.push("/patient");
+      router.push(`/patient?newappt=${encodeURIComponent(startDate.toISOString())}`);
     });
   };
 
