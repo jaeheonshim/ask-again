@@ -55,6 +55,9 @@ const doctorSchema = new Schema({
   consultationFee: {
     type: Number,
   },
+  bio: {
+    type: String
+  }
 });
 
 // Export the model

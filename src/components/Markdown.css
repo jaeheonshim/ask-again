@@ -1,0 +1,45 @@
+/* styles/markdown.css */
+.markdown-content {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #333;
+  }
+  
+  .markdown-content strong {
+    font-weight: bold;
+    color: #000;
+  }
+  
+  .markdown-content p {
+    margin: 10px 0;
+  }
+  
+  .markdown-content h1,
+  .markdown-content h2,
+  .markdown-content h3 {
+    font-weight: bold;
+    margin: 15px 0 5px;
+  }
+  
+  .markdown-content ul {
+    list-style-type: disc;
+    padding-left: 20px;
+  }
+  
+  .markdown-content li {
+    margin-bottom: 6px;
+  }
+  
+  .markdown-content pre {
+    background: #f5f5f5;
+    padding: 10px;
+    border-radius: 5px;
+    overflow: auto;
+  }
+  
+  .markdown-content code {
+    background: #f0f0f0;
+    padding: 2px 4px;
+    border-radius: 3px;
+  }
+  
