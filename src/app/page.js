@@ -3,6 +3,7 @@ import { SignIn } from "@/components/auth/SignInButton";
 import User from "@/models/user";
 import Image from "next/image";
 import { redirect } from "next/navigation";
+import "@/models/appointment"
 
 export default async function Home() {
   const session = await auth();
