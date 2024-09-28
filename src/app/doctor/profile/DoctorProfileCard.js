@@ -1,28 +1,12 @@
-"use client"
-import { useEffect, useState } from 'react';
+"use server";
 
-const DoctorProfile = ({ id }) => {
-  id = "66f75c6d198f7959d989b847";
-  const [doctor, setDoctor] = useState(null);
-  const [error, setError] = useState('');
+import Doctor from '@/models/doctor';
+import connectMongo from '@/mongoose';
 
-  useEffect(() => {
-    const fetchDoctor = async () => {
-      try {
-        const response = await fetch(`/api/doctors/${id}`);
-        if (!response.ok) throw new Error('Doctor not found');
-        const data = await response.json();
-        setDoctor(data);
-      } catch (err) {
-        setError(err.message);
-      }
-    };
+async function DoctorProfileCard({ id }) {
+  await connectMongo();
 
-    fetchDoctor();
-  }, [id]);
-
-  if (error) return <div>Error: {error}</div>;
-  if (!doctor) return <div>Loading...</div>;
+  const doctor = await Doctor.findOne({userId: id});
 
   return (
     <div className="doctor-profile">
@@ -36,17 +20,17 @@ const DoctorProfile = ({ id }) => {
       <div><strong>City:</strong> {doctor.city}</div>
       <div><strong>Country:</strong> {doctor.country}</div>
       <div><strong>Bio:</strong> {doctor.bio}</div>
-      <div><strong>Languages Spoken:</strong> {doctor.languagesSpoken.join(', ')}</div>
+      {/* <div><strong>Languages Spoken:</strong> {doctor.languagesSpoken.join(', ')}</div> */}
       <div><strong>Speciality:</strong> {doctor.speciality}</div>
       <div><strong>Years of Experience:</strong> {doctor.yearsOfExperience}</div>
       <div><strong>Medical School:</strong> {doctor.medicalSchool}</div>
-      <div><strong>Board Certifications:</strong> {doctor.boardCertifications.join(', ')}</div>
+      {/* <div><strong>Board Certifications:</strong> {doctor.boardCertifications.join(', ')}</div> */}
       <div><strong>Practice Name:</strong> {doctor.practiceName}</div>
-      <div><strong>Hospital Affiliations:</strong> {doctor.hospitalAffiliations.join(', ')}</div>
+      {/* <div><strong>Hospital Affiliations:</strong> {doctor.hospitalAffiliations.join(', ')}</div> */}
       <div><strong>Clinic Name:</strong> {doctor.clinicName}</div>
       <div><strong>Consultation Fee:</strong> {doctor.consultationFee}</div>
     </div>
   );
 };
 
-export default DoctorProfile;
+export default DoctorProfileCard;
