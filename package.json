@@ -12,6 +12,7 @@
     "@auth/mongodb-adapter": "^3.5.3",
     "bcryptjs": "^2.4.3",
     "bootstrap": "^5.3.3",
+    "date-fns": "^4.1.0",
     "express": "^4.21.0",
     "googleapis": "^144.0.0",
     "mongodb": "^6.9.0",
