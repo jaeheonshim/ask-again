@@ -32,16 +32,7 @@ export async function initializeChatOnServer() {
         Ask one question at a time.
         If you feel that this is a medical emergency, respond with only this: 
         "You should call 911 and seek medical assistance immediately!"
-        Return your answers in MARKDOWN
-        
-        Please send responses in the following formats only.
-        If you would like to send a plain text message to the user:
-        {"type": "text", "content": "<your message>"}
-
-        If you would like to ask the user a multiple choice question:
-        {"type": "question", "question": "<your question>", "choices": ["<choice1>", "<choice2>"], "multiple": <true if multiple answers can be selected, false otherwise>}
-        The user will respond with the text value of the choice.
-        `,
+        Return your answers in MARKDOWN`,
       ],
     },
     {
