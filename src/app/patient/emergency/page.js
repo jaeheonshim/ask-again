@@ -3,7 +3,7 @@
 import { useSession, signIn } from 'next-auth/react';
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { savePatientInformation } from '../actions';
+import { savePatientInformation } from '../registration/actions';
 
 export default function Emergency() {
   const { data: session, status } = useSession();
