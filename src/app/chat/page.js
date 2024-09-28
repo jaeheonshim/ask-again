@@ -37,7 +37,8 @@ const Chatbot = () => {
         const extractedCategory = categoryMatch[1];
         console.log(extractedCategory)
         setLoading(false)
-        await delay(4000);
+        localStorage.setItem("chatHistory", JSON.stringify(chatHistory))
+        await delay(3000);
         router.push(`patient/finddoctors?speciality=${extractedCategory}`);
       }
     } catch (error) {
