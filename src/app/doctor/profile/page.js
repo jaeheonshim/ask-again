@@ -1,5 +1,5 @@
 "use client";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './profile.css'; // Importing the CSS file
 
 // Basic Input Component for Reusability
@@ -21,27 +21,18 @@ const InputField = ({ label, value, name, onChange, isEditing, type = "text" }) 
 );
 
 const DoctorProfile = () => {
-  // Form data for the doctor's profile
-  const [formData, setFormData] = useState({
-    firstName: 'John',
-    lastName: 'Doe',
-    dateOfBirth: '1980-01-01',
-    gender: 'Male',
-    email: 'john.doe@example.com',
-    phoneNumber: '+1234567890',
-    city: 'New York',
-    country: 'USA',
-    languagesSpoken: ['English', 'Spanish'],
-    speciality: 'Cardiology',
-    yearsOfExperience: '15',
-    medicalSchool: 'Harvard Medical School',
-    boardCertifications: ['American Board of Internal Medicine'],
-    practiceName: 'City Health Clinic',
-    hospitalAffiliations: ['New York General Hospital'],
-    clinicAddress: '123 Health St, New York, NY',
-    telemedicineAvailable: true,
-    consultationFee: '200',
-  });
+  const [doctor, setDoctor] = useState(null);
+
+  useEffect(async () => {
+    try {
+      const response = await fetch(`/api/doctors/${id}`);
+      if(!response.ok) throw new Error("Doctor not found");
+      const data = await response.json();
+      setDoctor(data);
+    } catch (err) {
+      
+    }
+  })
 
   const [isEditing, setIsEditing] = useState(false);
 
