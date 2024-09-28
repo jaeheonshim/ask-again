@@ -3,6 +3,8 @@
 import connectMongo from "@/mongoose";
 import Appointment from "@/models/appointment";
 import { startOfDay, endOfDay } from "date-fns";
+import { auth } from "@/auth";
+import Patient from "@/models/patient";
 
 export async function getAppointmentsByDateRange({ start, end }) {
     // Connect to MongoDB and log the connection status
@@ -11,6 +13,9 @@ export async function getAppointmentsByDateRange({ start, end }) {
     console.log("Connected to MongoDB.");
 
     // Ensure the start and end dates cover the entire days
+    const session = await auth();
+    const user = session.user;
+    const patient = await Patient.findOne({userId: user.id});
     const startDate = startOfDay(new Date(start));
     const endDate = endOfDay(new Date(end));
 
@@ -19,6 +24,7 @@ export async function getAppointmentsByDateRange({ start, end }) {
     try {
         const appointments = await Appointment.find({
             start: { $gte: startDate, $lt: endDate },
+            patient: patient
         })
         .populate('doctor') // Populate the doctor field
         .lean();

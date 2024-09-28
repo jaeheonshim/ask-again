@@ -45,7 +45,7 @@ export default function PatientDashboard() {
                 {activeTab === 'upcoming' && (
                     <div className="tab-pane fade show active">
                         {/* Pass the startDate prop to the AppointmentCalendar */}
-                        <AppointmentCalendar startDate={new Date(decodeURIComponent(newappt))}/>
+                        <AppointmentCalendar startDate={newappt && new Date(decodeURIComponent(newappt))}/>
                     </div>
                 )}
                 {activeTab === 'past' && (
