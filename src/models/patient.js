@@ -6,23 +6,35 @@ const patientSchema = new Schema({
     type: ObjectId,
     unique: true,
   },
-  firstName: {
+  fullName: {
     type: String,
     required: true,
   },
-  lastName: {
+  email: {
     type: String,
     required: true,
   },
-  dateOfBirth: {
-    type: Date,
-    required: true,
+  age: {
+    type: String,
+    required: false,
   },
   gender: {
     type: String,
-    enum: ['Male', 'Female', 'Other'],
-    required: true,
-  }
+    enum: ['Male', 'Female', 'Other',""],
+    required: false,
+  },
+  country: {
+    type: String,
+    required: false,
+  },
+  languagesSpoken: {
+    type: [String],
+    default: [],
+    required: false,
+  },
+  photoIDFile: {
+    type: String,
+  },
 });
 
 const Patient = mongoose.models.Patient || mongoose.model('Patient', patientSchema);
