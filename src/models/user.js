@@ -9,9 +9,8 @@ const userSchema = new Schema({
     userType: {
         type: String,
         enum: ['patient', 'doctor'],
-        required: true
     },
 });
 
 const User = mongoose.models.AppUser || mongoose.model('AppUser', userSchema);
-module.exports = User;
+export default User;

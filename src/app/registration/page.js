@@ -1,27 +1,42 @@
+'use client'
+
 import { auth } from "@/auth";
 import User from "@/models/user";
+import connectMongo from "@/mongoose";
+import { useEffect, useState } from "react";
+
+const SET_USER_TYPE = "SET_USER_TYPE";
 
 export default async function Registration() {
+    await connectMongo();
     const session = await auth();
-
-    if (!session.user) return null;
-
+    if (!session?.user) return null;
     const user = session.user;
-    const userModel = User.findOne({ id: user.id });
 
-    const setUserType = (userType) => {
-        
-    }
+    const [registrationState, setRegistrationState] = useState(null);
 
-    if(!userModel) return null;
-
-    if(!userModel.userType) {
+    if (registrationState == SET_USER_TYPE) {
         return (
-            <div>
-                <button>I'm a Patient</button>
-                <br></br>
-                <button>I'm a Doctor</button>
-            </div>
+            <form>
+                <label>
+                    <input
+                        name="userType"
+                        type="radio"
+                        value="doctor"
+                    />
+                    Doctor
+                </label>
+                <label>
+                    <input
+                        name="userType"
+                        type="radio"
+                        value="patient"
+                    />
+                    Patient
+                </label>
+                <br />
+                <button type="submit">Continue</button>
+            </form>
         )
     }
 

@@ -5,7 +5,7 @@ import Image from "next/image";
 export default async function Home() {
   const session = await auth();
 
-  if(session.user) {
+  if(session?.user) {
     const user = session.user;
     return <div>
       <div>User Name: {user.name}</div>
