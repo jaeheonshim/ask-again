@@ -3,12 +3,14 @@ import Doctor from '@/models/doctor';
 import connectMongo from '@/mongoose';
 import './page.css'; // Import the CSS file
 
-export default async function DoctorDashboard({ speciality }) {
+export default async function DoctorDashboard({ searchParams }) {
     // Ensure MongoDB connection
     await connectMongo();
 
+    const { speciality } = searchParams;
+
     // Find all doctors with the given speciality
-    const doctors = await Doctor.find({ speciality: "Cardiologist" });
+    const doctors = await Doctor.find({ speciality: speciality});
 
     if (doctors.length === 0) {
         return (

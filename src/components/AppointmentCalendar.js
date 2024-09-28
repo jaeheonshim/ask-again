@@ -5,7 +5,7 @@ import { getAppointmentsByDateRange } from "@/actions/getAppointmentByDateRange"
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-export default function AppointmentCalendar({ startDate }) {
+export default function AppointmentCalendar({ startDate, ...props }) {
     // Initialize currentWeek with either the passed startDate or the current date's week
     const initialWeek = startOfWeek(startDate ? new Date(startDate) : new Date(), { weekStartsOn: 1 });
     const [currentWeek, setCurrentWeek] = useState(initialWeek);
@@ -62,7 +62,7 @@ export default function AppointmentCalendar({ startDate }) {
     }, [startDate]);
 
     return (
-        <div>
+        <div props>
             {/* Center the button group using Bootstrap flex utilities */}
             <div className="d-flex justify-content-center mb-4" style={{ position: 'relative' }}>
                 <div className="btn-group" role="group" aria-label="Basic example">
