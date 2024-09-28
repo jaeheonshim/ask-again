@@ -2,7 +2,10 @@ import mongoose, { Schema } from "mongoose";
 import { ObjectId } from "mongodb";
 
 const doctorSchema = new Schema({
-  userId: ObjectId,
+  userId: {
+    type: ObjectId,
+    unique: true,
+  },
   // Basic Information
   firstName: {
     type: String,
@@ -38,9 +41,6 @@ const doctorSchema = new Schema({
     type: String,
     required: true,
   },
-  bio: {
-    type: String
-  },
   languagesSpoken: {
     type: [String],
     default: [],
@@ -48,15 +48,7 @@ const doctorSchema = new Schema({
   speciality: String,
   yearsOfExperience: Number,
   medicalSchool: String,
-  boardCertifications: {
-    type: [String],
-    default: [],
-  },
   practiceName: String,
-  hospitalAffiliations: {
-    type: [String],
-    default: [],
-  },
   clinicName: {
     type: String,
   },
