@@ -13,5 +13,5 @@ export async function getUserType() {
     const session = await auth();
     if (!session.user) throw new Error("Unauthorized");
     const user = await User.findOne({ userId: session.user.id });
-    return user.userType;
+    return user && user.userType;
 }
