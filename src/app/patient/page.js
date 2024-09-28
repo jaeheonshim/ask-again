@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import AppointmentCalendar from "@/components/AppointmentCalendar";
+import PastAppointmentsCalendar from "@/components/PastAppointmentsCalender"; 
 
 export default function PatientDashboard() {
     const [activeTab, setActiveTab] = useState('upcoming'); // Track which tab is active
@@ -37,9 +38,7 @@ export default function PatientDashboard() {
                 )}
                 {activeTab === 'past' && (
                     <div className="tab-pane fade show active">
-                        {/* Past appointments content will go here */}
-                        <h3>Past Appointments</h3>
-                        <p>This section will contain past appointments data.</p>
+                        <PastAppointmentsCalendar />
                     </div>
                 )}
             </div>

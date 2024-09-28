@@ -1,67 +1,92 @@
-"use client"
+"use client";
 
 import { useEffect, useState } from "react";
-import { getUserType, setUserType } from "./actions";
-import { useRouter } from "next/navigation";
+import PastCard from "@/app/patient/pastappointments/PastCard";
+import { getAppointmentsByDateRange } from "@/app/actions/getAppointmentsByDateRange"; // Import server action
+import AppointmentCalendar from "@/components/AppointmentCalendar";
 
-export default function Registration() {
-    const router = useRouter();
-    const [selectedUserType, setSelectedUserType] = useState('doctor');
-    const [isLoaded, setIsLoaded] = useState(false);
 
-    function handleSubmit(event) {
-        setUserType(selectedUserType).then(() => {
-            if(selectedUserType == 'doctor') {
-                router.push('/doctor');
-            }
-        });
-    }
+export default function PatientDashboard() {
+    const [activeTab, setActiveTab] = useState('upcoming'); // Track which tab is active
+    const [pastAppointments, setPastAppointments] = useState([]); // Store past appointments
+    const [loading, setLoading] = useState(true); // Loading state for past appointments
 
     useEffect(() => {
-        async function verifyUserType() {
-            const userType = await getUserType();
-            if (userType) {
-                if (userType === 'doctor') {
-                    router.push('/doctor');
-                } else if (userType === 'patient') {
-                    router.push('/patient');
+        // Only fetch past appointments when the "Past" tab is active
+        if (activeTab === 'past') {
+            async function fetchPastAppointments() {
+                try {
+                    const today = new Date();
+                    const oneMonthAgo = new Date(today);
+                    oneMonthAgo.setMonth(today.getMonth() - 1);
+
+                    // Fetch past appointments (last 1 month for demonstration purposes)
+                    const appointments = await getAppointmentsByDateRange({
+                        start: oneMonthAgo,
+                        end: today,
+                    });
+
+                    setPastAppointments(appointments);
+                } catch (error) {
+                    console.error('Failed to fetch past appointments:', error);
+                } finally {
+                    setLoading(false);
                 }
             }
 
-            setIsLoaded(true);
+            fetchPastAppointments();
         }
-
-        verifyUserType();
-    }, []);
-
-    if(!isLoaded) return null;
+    }, [activeTab]);
 
     return (
-        <div>
-            <h2>Welcome! Please choose your user type:</h2>
-            <form action={handleSubmit}>
-                <div className="d-flex justify-content-center gap-3">
-                    <div onClick={() => setSelectedUserType("doctor")} className={(selectedUserType == 'doctor' ? "bg-primary " : "") + "p-4 rounded"} style={{ cursor: 'pointer' }}>
-                        <img
-                            src="/path/to/doctor-image.png"
-                            alt="Doctor"
-                            className="img-fluid"
-                            style={{ width: '100px', height: '100px' }}
-                        />
-                        <p>I'm a doctor</p>
+        <div className="container-fluid mt-4">
+            {/* Bootstrap Nav Tabs */}
+            <ul className="nav nav-tabs">
+                <li className="nav-item">
+                    <button 
+                        className={`nav-link ${activeTab === 'upcoming' ? 'active' : ''}`} 
+                        onClick={() => setActiveTab('upcoming')}
+                    >
+                        Upcoming
+                    </button>
+                </li>
+                <li className="nav-item">
+                    <button 
+                        className={`nav-link ${activeTab === 'past' ? 'active' : ''}`} 
+                        onClick={() => setActiveTab('past')}
+                    >
+                        Past
+                    </button>
+                </li>
+            </ul>
+
+            {/* Tab Content */}
+            <div className="tab-content mt-3">
+                {activeTab === 'upcoming' && (
+                    <div className="tab-pane fade show active">
+                        <h3>Upcoming Appointments</h3>
+                        <div className="tab-pane fade show active">
+                        <AppointmentCalendar />
                     </div>
-                    <div onClick={() => setSelectedUserType("patient")} className={(selectedUserType == 'patient' ? "bg-primary " : "") + "p-4 rounded"} style={{ cursor: 'pointer' }}>
-                        <img
-                            src="/path/to/patient-image.png"
-                            alt="Patient"
-                            className="img-fluid"
-                            style={{ width: '100px', height: '100px' }}
-                        />
-                        <p>I'm a patient</p>
                     </div>
-                </div>
-                <button type="submit" className="mt-3">Continue</button>
-            </form>
+                )}
+                {activeTab === 'past' && (
+                    <div className="tab-pane fade show active">
+                        <h3>Past Appointments</h3>
+                        {loading ? (
+                            <p>Loading past appointments...</p>
+                        ) : pastAppointments.length > 0 ? (
+                            <div>
+                                {pastAppointments.map((appointment) => (
+                                    <PastCard key={appointment._id} appointment={appointment} />
+                                ))}
+                            </div>
+                        ) : (
+                            <p>No past appointments found.</p>
+                        )}
+                    </div>
+                )}
+            </div>
         </div>
     );
-};
+}
