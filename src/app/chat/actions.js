@@ -1,4 +1,5 @@
 'use server';
+import { GoogleGenerativeAI } from '@google/generative-ai';
 
 import { initializeChat, sendMessage } from '@/helpers/gemini';
 import Doctor from '@/models/doctor';
@@ -67,4 +68,19 @@ export async function sendMessageToServer(message, conversationId) {
   conversationStore.set(conversationId, updatedHistory);
 
   return { responseText };
+}
+
+export async function getSummary(chatHistory) {
+  try {
+    const client = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+
+    const prompt = `Give me a summary of this conversation of a patient describing their problem to an llm.\n\n${chatHistory}`;
+
+    const model =client.getGenerativeModel({ model: "gemini-1.5-flash" });
+    const result = await model.generateContent(prompt);
+
+    return result.response.text();
+  } catch (error) {
+    console.error(error);
+  }
 }
