@@ -3,6 +3,15 @@ import Link from 'next/link';    // For linking to edit profile or more details
 import placeholder from "./placeholder.jpg";  // Placeholder image
 import './page.css'
 export default function DoctorInfoCard({ doctor }) {
+     // Function to truncate the bio to 25 words
+     const truncateBio = (bio) => {
+        const words = bio?.split(' ') || [];
+        if (words.length > 25) {
+            return words.slice(0, 25).join(' ') + '...';  // Limit to 25 words and add '...'
+        }
+        return bio;
+    };
+
     return (
         <div className="doctor-card">
             <div className="image-container">
@@ -11,7 +20,6 @@ export default function DoctorInfoCard({ doctor }) {
                     alt={`${doctor.firstName} ${doctor.lastName}`}
                     width={150}
                     height={150}
-                    style={{ borderRadius: '50%' }} // Rounded image
                 />
             </div>
 
@@ -21,7 +29,7 @@ export default function DoctorInfoCard({ doctor }) {
 
                 <div className="bio-container">
                     <h3>About</h3>
-                    <p>{doctor.bio || "This doctor hasn't written a bio yet."}</p>
+                    <p>{truncateBio(doctor.bio) || "This doctor hasn't written a bio yet."}</p>
                 </div>
 
                 <div className="info-container">
@@ -30,15 +38,12 @@ export default function DoctorInfoCard({ doctor }) {
                 </div>
 
                 <Link href={`/patient/confirmdoc?id=${doctor._id}`}>
-                    <button>
-                        Book consultation
-                    </button>
+                    <button>Book consultation</button>
                 </Link>
             </div>
         </div>
     );
 }
-
 
 const styles = {
     cardContainer: {
