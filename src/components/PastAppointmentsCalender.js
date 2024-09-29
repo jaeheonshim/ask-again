@@ -2,29 +2,35 @@
 import { useState, useEffect } from "react";
 import { addDays, format, startOfWeek, subWeeks } from "date-fns";
 import { getAppointmentsByDateRange } from "@/actions/getAppointmentByDateRange"; // Adjust this import based on your setup
+import AppointmentDetailsModal from "./AppointmentDetailsModal";
 
-export default function PastAppointmentsCalendar() {
+export default function PastAppointmentsCalendar({editable}) {
     const [appointments, setAppointments] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [selectedAppointment, setSelectedAppointment] = useState(null);
+
+    async function fetchPastAppointments() {
+        try {
+            const allAppointments = await getAppointmentsByDateRange({start: new Date(0), end: new Date()});
+
+            // Set the accumulated appointments to state
+            setAppointments(allAppointments);
+        } catch (error) {
+            console.error("Error fetching appointments:", error);
+            setError("Failed to fetch past appointments");
+        } finally {
+            setLoading(false);
+        }
+    }
 
     useEffect(() => {
-        async function fetchPastAppointments() {
-            try {
-                const allAppointments = await getAppointmentsByDateRange({start: new Date(0), end: new Date()});
-
-                // Set the accumulated appointments to state
-                setAppointments(allAppointments);
-            } catch (error) {
-                console.error("Error fetching appointments:", error);
-                setError("Failed to fetch past appointments");
-            } finally {
-                setLoading(false);
-            }
-        }
-
         fetchPastAppointments();
     }, []);
+
+    const handleAppointmentClick = (appointment) => {
+        setSelectedAppointment(appointment);
+    };
 
     if (loading) return <p>Loading past appointments...</p>;
     if (error) return <p>{error}</p>;
@@ -35,7 +41,7 @@ export default function PastAppointmentsCalendar() {
             <h3>Past Appointments Over the Last 20 Weeks</h3>
             <div className="list-group">
                 {appointments.map((appointment) => (
-                    <div key={appointment._id} className="card mb-3">
+                    <div key={appointment._id} className="card mb-3" onClick={() => handleAppointmentClick(appointment)} style={{ cursor: 'pointer' }}>
                         <div className="card-body">
                             <h6>
                                 Appointment with {appointment.doctor.firstName} {appointment.doctor.lastName}
@@ -53,6 +59,13 @@ export default function PastAppointmentsCalendar() {
                     </div>
                 ))}
             </div>
+
+            {selectedAppointment && (
+                <AppointmentDetailsModal editable={editable} selectedAppointment={selectedAppointment} handleClose={() => {
+                    setSelectedAppointment(null);
+                    fetchPastAppointments();
+                }} />
+            )}
         </div>
     );
 }
