@@ -1,28 +1,64 @@
-import { signIn } from "@/auth";
 
-export function SignIn() {
+'use client'; // This makes the component a Client Component
+
+import { signIn } from 'next-auth/react';
+import React from 'react';
+
+export function PatientSignIn() {
+  const handleSignIn = () => {
+    signIn(undefined, { callbackUrl: `/after-sign-in?userType=patient` });
+  };
+
   return (
-    <form
-      action={async () => {
-        "use server";
-        await signIn();
+    <button
+      onClick={handleSignIn}
+      className="btn btn-outline-primary mx-2 hover:bg-gray-200 active:bg-gray-400"
+      style={{
+        borderColor: "#673AB7",
+        color: "#673AB7",
+        backgroundColor: "transparent",
+        accentColor: "#673AB7",
       }}
-      className="text-center"
     >
-      <button
-        type="submit"
-        className="btn btn-lg fw-bold border-0 d-flex align-items-center justify-content-center"
-        style={{
-          background: "linear-gradient(135deg, #7B1FA2, #4A148C)", // Gradient matching the text
-          color: "white",
-          borderRadius: "10px",
-          padding: "12px 24px",
-          boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
-          fontSize: "1.5rem",
-        }}
-      >
-        Sign In
-      </button>
-    </form>
+      Patient Sign In
+    </button>
+  );
+}
+
+export function DoctorSignIn() {
+  const handleSignIn = () => {
+    signIn(undefined, { callbackUrl: `/after-sign-in?userType=doctor` });
+  };
+
+  return (
+    <button
+      onClick={handleSignIn}
+      className="btn btn-primary mx-2"
+      style={{
+        backgroundColor: "#673AB7",
+        borderColor: "#673AB7",
+      }}
+    >
+      Doctor Sign In
+    </button>
+  );
+}
+
+export function FindDoctor() {
+  const handleSignIn = () => {
+    signIn(undefined, { callbackUrl: `/after-sign-in?userType=patient` });
+  };
+
+  return (
+    <button
+      onClick={handleSignIn}
+      className="btn btn-outline-primary mx-2 hover:bg-gray-200"
+      style={{
+        borderColor: "#673AB7",
+        color: "#673AB7",
+      }}
+    >
+      Find A Doctor Now!
+    </button>
   );
 }
