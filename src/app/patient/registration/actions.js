@@ -12,8 +12,11 @@ export async function savePatientInformation(data) {
     const session = await auth();
     const user = session.user;
     const userModel = await User.findOne({ userId: session.user.id });
-    userModel.userType = "patient";
-    await userModel.save();
+    if(userModel){
+        userModel.userType = "patient";
+        await userModel.save();
+    }
+
 
     await Patient.updateOne({userId: session.user.id}, {
         userId: user.id,

@@ -2,21 +2,17 @@
 
 import React, { useState, useEffect } from 'react';
 import { sendMessageToServer, initializeChatOnServer } from './actions';
-import { MdOutlineChat } from 'react-icons/md';
+import { MdSend } from 'react-icons/md';
 import { FaWindowClose } from "react-icons/fa";
 import MarkdownRenderer from '@/components/MarkdownRenderer';
-import { useRouter } from 'next/navigation';
-import '../../components/Markdown.css'
+import '../../components/Markdown.css';
 import { DefaultTextComponent, SuggestDoctors, UserEmergencyComponent, UserPromptComponent } from './chatcomponents';
-import { parse } from 'date-fns';
 
-const Chatbot = () => {
+const Chatbot = ({ onClose }) => {
   const [chatHistory, setChatHistory] = useState([]);
   const [messageInput, setMessageInput] = useState('');
   const [loading, setLoading] = useState(false);
   const [conversationId, setConversationId] = useState(null);
-  const router = useRouter();
-  const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
   const handleInput = (e) => {
     setMessageInput(e.target.value);
@@ -24,24 +20,23 @@ const Chatbot = () => {
 
   const parseResponse = (data) => {
     if (!data) return null;
-    console.log(data);
     if (data.type === "text") {
-      return <DefaultTextComponent data={data} />
+      return <DefaultTextComponent data={data} />;
     } else if (data.type === "user") {
-      return <UserPromptComponent data={data} />
+      return <UserPromptComponent data={data} />;
     } else if (data.type === "suggest-speciality") {
-      return <SuggestDoctors data={data} />
+      return <SuggestDoctors data={data} />;
     } else if (data.type === "emergency") {
-      return <UserEmergencyComponent />
+      return <UserEmergencyComponent />;
     }
-  }
+  };
 
   useEffect(() => {
     async function queryChatbot(message) {
-      const {responseText} = await sendMessageToServer(message.content, conversationId);
+      const { responseText } = await sendMessageToServer(message.content, conversationId);
       setChatHistory((prev) => [
         ...prev,
-        JSON.parse(responseText.trim())
+        JSON.parse(responseText.trim()),
       ]);
     }
 
@@ -49,7 +44,7 @@ const Chatbot = () => {
     if (lastMessage && lastMessage.type === "user") {
       queryChatbot(lastMessage);
     }
-  }, [chatHistory])
+  }, [chatHistory]);
 
   const handleChatInput = async () => {
     if (messageInput.trim() === '') return;
@@ -58,7 +53,7 @@ const Chatbot = () => {
     try {
       setChatHistory((prev) => [
         ...prev,
-        { type: 'user', content: messageInput }
+        { type: 'user', content: messageInput },
       ]);
 
       setMessageInput('');
@@ -73,7 +68,7 @@ const Chatbot = () => {
     try {
       const { initialResponse, newConversationId } = await initializeChatOnServer();
       setChatHistory([
-        { type: 'text', content: initialResponse } // Store the model's response as an object
+        { type: 'text', content: initialResponse }, // Store the model's response as an object
       ]);
       setConversationId(newConversationId);
     } catch (error) {
@@ -87,15 +82,29 @@ const Chatbot = () => {
   }, []);
 
   return (
-    <div className='fixed inset-0 z-20'>
-      <div className='fixed inset-0 bg-white border border-gray-300 p-4 rounded-lg shadow-md z-70 font-Mono flex flex-col justify-between'>
+    <div className='fixed bottom-0 left-0 mb-4 ml-4 z-50'>
+      <div
+        className='bg-white border border-gray-300 p-4 rounded-lg shadow-md font-Mono flex flex-col justify-between'
+        style={{ width: '350px', height: '500px' }}
+      >
+        {/* Close Button */}
+        <div className='flex justify-between mb-2'>
+          <h2 className='text-lg font-bold'>New Appointment</h2>
+          <button onClick={onClose} className='text-gray-600 hover:text-gray-800 focus:outline-none'>
+            <FaWindowClose size={24} />
+          </button>
+        </div>
 
-        <div className='flex-1 overflow-y-auto snap-y'>
-          {chatHistory.map((entry) => parseResponse(entry))}
+        {/* Chat History */}
+        <div className='flex-1 overflow-y-auto mb-2'>
+          {chatHistory.map((entry, index) => (
+            <div key={index}>{parseResponse(entry)}</div>
+          ))}
           {loading && <div className='text-center text-black'>Loading...</div>}
         </div>
 
-        <div className='flex items-center justify-between mt-4'>
+        {/* Message Input */}
+        <div className='flex items-center mt-2'>
           <input
             disabled={loading}
             className='w-full border border-gray-300 px-3 py-2 text-black rounded-md focus:outline-none'
@@ -105,11 +114,11 @@ const Chatbot = () => {
             value={messageInput}
           />
           <button
-            className='bg-black px-4 py-2 text-white rounded-md shadow-md hover:bg-gray-800 disabled:bg-gray-500 focus:outline-none ml-4'
+            className='bg-blue-500 px-4 py-2 text-white rounded-md shadow-md hover:bg-blue-600 disabled:bg-gray-500 focus:outline-none ml-2'
             disabled={messageInput.trim() === '' || loading}
             onClick={handleChatInput}
           >
-            <MdOutlineChat size={24} />
+            <MdSend size={24} />
           </button>
         </div>
       </div>
