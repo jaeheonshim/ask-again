@@ -22,9 +22,6 @@ const Header = async ({ user }) => {
           <li className="mx-3">
             <a href="/howitworks" style={{ color: "#333", textDecoration: "none" }}>How It Works</a>
           </li>
-          <li className="mx-3">
-            <a href="/contact" style={{ color: "#333", textDecoration: "none" }}>Contact</a>
-          </li>
         </ul>
       </nav>
       <div className="flex justify-around items-center gap-0.1">
