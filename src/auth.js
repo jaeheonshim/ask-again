@@ -7,7 +7,7 @@ import User from "@/models/user"
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   adapter: MongoDBAdapter(client),
-  providers: [Google],
+  providers: [Google({allowDangerousEmailAccountLinking: true})],
   callbacks: {
     async signIn({ user, account, profile, email, credentials }) {
       await connectMongo();
