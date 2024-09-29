@@ -162,3 +162,41 @@
 .calendar-nav-buttons .btn-primary:hover {
     background-color: #540a9d; /* Darker purple on hover */
 }
+
+.bigger-calendar {
+    width: 100%;
+    max-width: 1400px;
+    min-height: 600px;
+    margin: 0 auto;
+    background-color: #c0c0c0; /* More pronounced silver background */
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.bigger-calendar .calendar-container {
+    width: 100%;
+    padding: 30px;
+    background-color: #c0c0c0; /* Silver background for the calendar */
+    border-radius: 10px;
+}
+
+.bigger-calendar .calendar-day {
+    min-height: 400px;
+    border-left: 1px solid #b0b0b0; /* Slightly darker silver border for day separation */
+}
+
+.bigger-calendar .appointment-card {
+    background-color: #ffffff; /* White background for the cards */
+    font-size: 16px;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* Light shadow to make it pop */
+    transition: all 0.3s ease;
+}
+
+.bigger-calendar .appointment-card:hover {
+    background-color: #d0d0d0; /* Darker silver on hover */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Larger shadow on hover */
+}
