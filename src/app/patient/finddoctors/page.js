@@ -24,7 +24,6 @@ export default async function DoctorDashboard({ searchParams }) {
 
     return (
         <>
-        <Header user={session.user} />
         <div className="container">
             <h1 className="header">Expert {speciality}s Ready To Assist You!</h1>
             <div className="grid-container">

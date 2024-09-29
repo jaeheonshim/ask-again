@@ -89,7 +89,7 @@ export default function ConfirmDocModal({ doctor }) {
       >
         Create Booking
       </button>
-
+  
       <div
         className="modal fade"
         id="exampleModal"
@@ -98,10 +98,10 @@ export default function ConfirmDocModal({ doctor }) {
         aria-hidden="true"
         ref={modalRef}
       >
-        <div className="modal-dialog">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title" id="exampleModalLabel">
+        <div className="modal-dialog modal-dialog-centered">
+          <div className="modal-content" style={styles.modalContent}>
+            <div className="modal-header" style={styles.modalHeader}>
+              <h5 className="modal-title" id="exampleModalLabel" style={styles.modalTitle}>
                 Confirm Booking With {doctor.firstName} {doctor.lastName}
               </h5>
               <button
@@ -109,11 +109,12 @@ export default function ConfirmDocModal({ doctor }) {
                 className="btn-close"
                 aria-label="Close"
                 onClick={handleCloseModal}
+                style={styles.closeButton}
               ></button>
             </div>
-            <div className="modal-body">
+            <div className="modal-body" style={styles.modalBody}>
               <div>
-                <label>Select Start Date & Time</label>
+                <label style={styles.label}>Select Start Date & Time </label>
                 <DatePicker
                   selected={startDate}
                   onChange={date => {
@@ -124,11 +125,12 @@ export default function ConfirmDocModal({ doctor }) {
                   dateFormat="Pp"
                   className="form-control"
                   placeholderText="Select start date and time"
-                  minDate={new Date()}  // Prevent selecting past dates
+                  minDate={new Date()}
+                  style={styles.datePicker}
                 />
               </div>
               <div style={{ marginTop: '15px' }}>
-                <label>Select End Date & Time</label>
+                <label style={styles.label}>Select End Date & Time </label>
                 <DatePicker
                   selected={endDate}
                   onChange={date => setEndDate(date)}
@@ -136,7 +138,8 @@ export default function ConfirmDocModal({ doctor }) {
                   dateFormat="Pp"
                   className="form-control"
                   placeholderText="Select end date and time"
-                  minDate={startDate || new Date()}  // Prevent selecting past dates, and ensure end date is not before start date
+                  minDate={startDate || new Date()}
+                  style={styles.datePicker}
                 />
               </div>
               {errorMessage && (
@@ -144,24 +147,26 @@ export default function ConfirmDocModal({ doctor }) {
                   {errorMessage}
                 </div>
               )}
-
+  
               <hr />
-              <div>
+              <div style={styles.totalCost}>
                 Total cost: ${(endDate && startDate) ? ((endDate - startDate) / (1000 * 60 * 60) * doctor.consultationFee).toFixed(2) : 0}
               </div>
             </div>
-            <div className="modal-footer">
+            <div className="modal-footer" style={styles.modalFooter}>
               <button
                 type="button"
-                className="btn btn-secondary"
+                className="btn"
                 onClick={handleCloseModal}
+                style={styles.cancelButton}
               >
                 Cancel
               </button>
               <button
                 type="button"
-                className="btn btn-primary"
+                className="btn"
                 onClick={handleSaveChanges}
+                style={styles.submitButton}
               >
                 Submit Booking
               </button>
@@ -171,14 +176,13 @@ export default function ConfirmDocModal({ doctor }) {
       </div>
     </>
   );
-}
-
+}  
 const styles = {
   button: {
     display: 'block',
     width: '100%',
     padding: '15px',
-    backgroundColor: '#28a745',
+    backgroundColor: '#6a0dad',  // Changed to purple
     color: '#fff',
     fontSize: '18px',
     fontWeight: 'bold',
@@ -188,5 +192,75 @@ const styles = {
     cursor: 'pointer',
     transition: 'background-color 0.3s',
     marginTop: '30px',
+  },
+  modalContent: {
+    borderRadius: '10px',
+    padding: '20px',
+    backgroundColor: '#fff',
+  },
+  modalHeader: {
+    borderBottom: 'none',
+    paddingBottom: '0',
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  modalTitle: {
+    color: '#6a0dad',
+    fontWeight: 'bold',
+    fontSize: '20px',
+  },
+  closeButton: {
+    backgroundColor: 'transparent',
+    border: 'none',
+    fontSize: '1.5rem',
+    cursor: 'pointer',
+    color: '#6a0dad',  // Purple color for the close button
+  },
+  modalBody: {
+    paddingTop: '10px',
+  },
+  label: {
+    color: '#6a0dad',  // Purple label color
+    fontSize: '16px',
+    fontWeight: 'bold',
+    paddingRight: '5px',
+  },
+  datePicker: {
+    width: '100%',
+    padding: '10px',
+    fontSize: '16px',
+    borderRadius: '5px',
+    border: '1px solid #ddd',
+  },
+  totalCost: {
+    marginTop: '15px',
+    fontSize: '18px',
+    color: '#333',
+  },
+  modalFooter: {
+    borderTop: 'none',
+    display: 'flex',
+    justifyContent: 'space-between',
+    paddingTop: '15px',
+  },
+  cancelButton: {
+    backgroundColor: '#ddd',
+    color: '#333',
+    borderRadius: '5px',
+    padding: '10px 20px',
+    fontSize: '16px',
+    border: 'none',
+    cursor: 'pointer',
+  },
+  submitButton: {
+    backgroundColor: '#6a0dad',  // Changed to purple
+    color: '#fff',
+    borderRadius: '5px',
+    padding: '10px 20px',
+    fontSize: '16px',
+    border: 'none',
+    cursor: 'pointer',
+    transition: 'background-color 0.3s',
   },
 };
