@@ -4,8 +4,11 @@ import Patient from "@/models/patient";
 import PatientDashboardComponent from "./Dashboard";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
+import connectMongo from "@/mongoose";
 
 export default async function PatientDashboard({ searchParams }) {
+    await connectMongo();
+    
     const session = await auth();
     const newappt = searchParams.newappt || null;
     if(!session) return null;

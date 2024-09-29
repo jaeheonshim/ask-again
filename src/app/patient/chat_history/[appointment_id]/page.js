@@ -54,6 +54,8 @@ export default async function ChatHistory({params}) {
 
     return <div className="container py-3">
         <h1 className="h2">Chat History for {appointment.patient.fullName}</h1>
+        <h2>{appointment.createdAt.toISOString()}</h2>
+        <br />
         <div>
             {appointment.chatHistory.map(e => parseResponse(e))}
             <div>End of chat.</div>
