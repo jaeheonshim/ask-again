@@ -1,48 +1,44 @@
 import Image from 'next/image';  // For handling the image
 import Link from 'next/link';    // For linking to edit profile or more details
 import placeholder from "./placeholder.jpg";  // Placeholder image
-
+import './page.css'
 export default function DoctorInfoCard({ doctor }) {
     return (
-        <div style={styles.wrapper}>
-            <div style={styles.cardContainer}>
-                {/* Placeholder Image or Doctor's Image */}
-                <div style={styles.imageContainer}>
-                    <Image
-                        src={placeholder}  // Placeholder image
-                        alt={`${doctor.firstName} ${doctor.lastName}`}
-                        width={500}
-                        style={styles.image}
-                    />
+        <div className="doctor-card">
+            <div className="image-container">
+                <Image
+                    src={placeholder}  // Placeholder image
+                    alt={`${doctor.firstName} ${doctor.lastName}`}
+                    width={150}
+                    height={150}
+                    style={{ borderRadius: '50%' }} // Rounded image
+                />
+            </div>
+
+            <div className="content">
+                <h2>{doctor.firstName} {doctor.lastName}</h2>
+                <p className="speciality">{doctor.speciality}</p>
+
+                <div className="bio-container">
+                    <h3>About</h3>
+                    <p>{doctor.bio || "This doctor hasn't written a bio yet."}</p>
                 </div>
 
-                <div style={styles.content}>
-                    {/* Doctor's Name */}
-                    <h2 style={styles.name}>{doctor.firstName} {doctor.lastName}</h2>
-                    {/* Doctor's Specialization */}
-                    <p style={styles.speciality}>{doctor.speciality}</p>
-                    {/* Doctor's Bio */}
-                    <div style={styles.bioContainer}>
-                        <h3 style={styles.bioTitle}>About</h3>
-                        <p style={styles.bioText}>{doctor?.bio || "This doctor hasn't written a bio yet."}</p>
-                    </div>
-                    {/* Years of Experience */}
-                    <div style={styles.infoContainer}>
-                        <p><strong>Experience:</strong> {doctor?.yearsOfExperience || 'N/A'} years</p>
-                        {/* Consultation Fee */}
-                        <p><strong>Consultation Fee:</strong> ${doctor?.consultationFee || 'N/A'}</p>
-                    </div>
-                    {/* Book Consultation Button */}
-                    <Link href={`/patient/confirmdoc?id=${doctor._id}`}>
-                        <button style={styles.button}>
-                            Book consultation
-                        </button>
-                    </Link>
+                <div className="info-container">
+                    <p><strong>Experience:</strong> {doctor.yearsOfExperience || 'N/A'} years</p>
+                    <p><strong>Consultation Fee:</strong> ${doctor.consultationFee || 'N/A'}</p>
                 </div>
+
+                <Link href={`/patient/confirmdoc?id=${doctor._id}`}>
+                    <button>
+                        Book consultation
+                    </button>
+                </Link>
             </div>
         </div>
     );
 }
+
 
 const styles = {
     cardContainer: {

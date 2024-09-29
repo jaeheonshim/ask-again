@@ -3,6 +3,7 @@ import connectMongo from '@/mongoose';
 import Doctor from '@/models/doctor';
 import { notFound } from 'next/navigation';  // For handling 404s
 import ConfirmDocModal from './ConfirmDocModal';
+import Header from '@/components/header';
 
 export default async function ConfirmDoctorPage({ searchParams }) {
     const id = searchParams?.id;  // Extract the doctor ID from the query string
@@ -63,6 +64,7 @@ export default async function ConfirmDoctorPage({ searchParams }) {
 
             <ConfirmDocModal doctor={JSON.parse(JSON.stringify(doctor))} />
         </div>
+        
     );
 }
 
