@@ -145,6 +145,15 @@ export default function AppointmentCalendar({ startDate, editable, ...props }) {
                 ))}
             </div>
 
+            {appointments.length === 0 && (
+                <div className="d-flex justify-content-center align-items-center" style={{ height: '200px' }}>
+                    <p className="text-center">
+                        No appointments scheduled this week.
+                    </p>
+                </div>
+            )}
+
+
             {selectedAppointment && (
                 <AppointmentDetailsModal editable={editable} selectedAppointment={selectedAppointment} handleClose={() => {
                     setSelectedAppointment(null);
