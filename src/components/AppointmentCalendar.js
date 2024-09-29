@@ -8,13 +8,16 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import Link from "next/link";
 import "./AppointmentCalender.css"
+import { updateAppointmentDoctorNotes } from "@/actions/updateAppointmentDoctorNotes";
 
-export default function AppointmentCalendar({ startDate, ...props }) {
+export default function AppointmentCalendar({ startDate, editable, ...props }) {
     const initialWeek = startOfWeek(startDate ? new Date(startDate) : new Date(), { weekStartsOn: 1 });
     const [currentWeek, setCurrentWeek] = useState(initialWeek);
     const [appointments, setAppointments] = useState([]);
     const [isCalendarOpen, setIsCalendarOpen] = useState(false);
     const [selectedAppointment, setSelectedAppointment] = useState(null);
+    const [doctorNotes, setDoctorNotes] = useState('');
+
     const modalRef = useRef(null);
 
     const today = startOfWeek(new Date(), { weekStartsOn: 1 });
@@ -73,6 +76,7 @@ export default function AppointmentCalendar({ startDate, ...props }) {
 
             if (selectedAppointment) {
                 modalInstance.show();
+                setDoctorNotes(selectedAppointment.doctorNotes);
             } else {
                 modalInstance.hide();
             }
@@ -88,6 +92,11 @@ export default function AppointmentCalendar({ startDate, ...props }) {
     };
 
     const handleCloseModal = () => {
+        setSelectedAppointment(null);
+    };
+
+    const handleCloseModalAndSave = () => {
+        updateAppointmentDoctorNotes(selectedAppointment._id, doctorNotes);
         setSelectedAppointment(null);
     };
 
@@ -142,25 +151,25 @@ export default function AppointmentCalendar({ startDate, ...props }) {
                                 return appointmentDate.toDateString() === addDays(currentWeek, index).toDateString();
                             })
                             .map(appointment => (
-                                <div 
-                                    key={appointment._id} 
-                                    className="card m-2" 
+                                <div
+                                    key={appointment._id}
+                                    className="card m-2"
                                     onClick={() => handleAppointmentClick(appointment)}
-                                    style={{ cursor: 'pointer' }} 
+                                    style={{ cursor: 'pointer' }}
                                 >
-                                    <div 
-    key={appointment._id} 
-    className="card m-2 hover-expand-card" 
-    onClick={() => handleAppointmentClick(appointment)}
-    style={{ cursor: 'pointer' }} 
->
-    <div className="card-body p-2 text-wrap text-break">
-        <h6>{format(new Date(appointment.start), 'p')} - {format(new Date(appointment.end), 'p')}</h6>
-        <div>
-            Appointment with {appointment.doctor.firstName} {appointment.doctor.lastName}
-        </div>
-    </div>
-</div>
+                                    <div
+                                        key={appointment._id}
+                                        className="card m-2 hover-expand-card"
+                                        onClick={() => handleAppointmentClick(appointment)}
+                                        style={{ cursor: 'pointer' }}
+                                    >
+                                        <div className="card-body p-2 text-wrap text-break">
+                                            <h6>{format(new Date(appointment.start), 'p')} - {format(new Date(appointment.end), 'p')}</h6>
+                                            <div>
+                                                Appointment with {appointment.doctor.firstName} {appointment.doctor.lastName}
+                                            </div>
+                                        </div>
+                                    </div>
 
                                 </div>
                             ))
@@ -210,10 +219,23 @@ export default function AppointmentCalendar({ startDate, ...props }) {
                                     <strong>Total Cost:</strong> ${(selectedAppointment.costPerHour * ((new Date(selectedAppointment.end) - new Date(selectedAppointment.start)) / (1000 * 60 * 60))).toFixed(2)}
                                 </div>
                                 <hr />
+                                <div>
+                                    <strong>Chat Summary:</strong> {selectedAppointment.chatSummary}
+                                </div>
                                 <Link href={`/patient/chat_history/${selectedAppointment._id}`} >View patient chat logs</Link>
+                                <hr />
+                                <div>
+                                    <strong>Doctor Notes:</strong>
+                                    <textarea className="form-control" readOnly={!editable} value={doctorNotes} onChange={(e) => {
+                                        setDoctorNotes(e.target.value);
+                                    }}></textarea>
+                                </div>
                             </div>
                             <div className="modal-footer">
-                                <button type="button" className="btn btn-secondary" onClick={handleCloseModal}>Close</button>
+                                {editable ?
+                                    <button type="button" className="btn btn-primary" onClick={handleCloseModalAndSave}>Save and Close</button> :
+                                    <button type="button" className="btn btn-secondary" onClick={handleCloseModal}>Close</button>
+                                }
                             </div>
                         </div>
                     </div>

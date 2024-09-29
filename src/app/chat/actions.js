@@ -71,10 +71,12 @@ export async function sendMessageToServer(message, conversationId) {
 }
 
 export async function getSummary(chatHistory) {
+  if(!chatHistory) return null;
+
   try {
     const client = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
-    const prompt = `Give me a summary of this conversation of a patient describing their problem to an llm.\n\n${chatHistory}`;
+    const prompt = `Give me a summary of this conversation of a patient describing their problem to an llm called Bandage.\n\n${JSON.stringify(chatHistory)}`;
 
     const model =client.getGenerativeModel({ model: "gemini-1.5-flash" });
     const result = await model.generateContent(prompt);

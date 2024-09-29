@@ -27,9 +27,16 @@ const appointmentSchema = new Schema({
     type: Date,
     required: true
   },
+  chatSummary: {
+    type: String,
+    required: false
+  },
   chatHistory: {
     type: [Schema.Types.Mixed],
     required: false
+  },
+  doctorNotes: {
+    type: String
   }
 }, { timestamps: true });
 

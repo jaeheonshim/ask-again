@@ -38,7 +38,7 @@ export default function DoctorDashboardComponent({ newappt }) {
       <div className="tab-content mt-3">
         {activeTab === 'upcoming' && (
           <div className="tab-pane fade show active">
-            <AppointmentCalendar />
+            <AppointmentCalendar editable={true} />
           </div>
         )}
         {activeTab === 'past' && (

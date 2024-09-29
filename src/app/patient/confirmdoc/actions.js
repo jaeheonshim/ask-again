@@ -7,6 +7,7 @@ import Patient from "@/models/patient";
 import connectMongo from "@/mongoose";
 import { parseSetCookie } from "next/dist/compiled/@edge-runtime/cookies";
 import { ObjectId } from "mongodb";
+import { getSummary } from "@/app/chat/actions";
 
 export async function createAppointment(doctorId, start, end, chatHistory) {
     await connectMongo();
@@ -25,6 +26,7 @@ export async function createAppointment(doctorId, start, end, chatHistory) {
         costPerHour: doctorModel.consultationFee,
         start: start,
         end: end,
-        chatHistory: chatHistory
+        chatHistory: chatHistory,
+        chatSummary: await getSummary(chatHistory)
     })
 }
