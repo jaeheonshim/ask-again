@@ -7,16 +7,28 @@ import { FaWindowClose } from "react-icons/fa";
 import MarkdownRenderer from '@/components/MarkdownRenderer';
 import '../../components/Markdown.css';
 import { DefaultTextComponent, SuggestDoctors, UserEmergencyComponent, UserPromptComponent } from './chatcomponents';
+import { useRouter } from 'next/navigation';
 
 const Chatbot = ({ onClose }) => {
+  const router = useRouter();
   const [chatHistory, setChatHistory] = useState([]);
   const [messageInput, setMessageInput] = useState('');
   const [loading, setLoading] = useState(false);
   const [conversationId, setConversationId] = useState(null);
 
+  useEffect(() => {
+    localStorage.removeItem('user_llm_chat_data');
+  }, []);
+
   const handleInput = (e) => {
     setMessageInput(e.target.value);
   };
+
+  const searchDoctor = (speciality) => {
+    // save to localStorage
+    localStorage.setItem('user_llm_chat_data', JSON.stringify(chatHistory));
+    router.push(`patient/finddoctors?speciality=${speciality}`);
+  }
 
   const parseResponse = (data) => {
     if (!data) return null;
@@ -25,7 +37,7 @@ const Chatbot = ({ onClose }) => {
     } else if (data.type === "user") {
       return <UserPromptComponent data={data} />;
     } else if (data.type === "suggest-speciality") {
-      return <SuggestDoctors data={data} />;
+      return <SuggestDoctors data={data} searchDoctor={searchDoctor} />;
     } else if (data.type === "emergency") {
       return <UserEmergencyComponent />;
     }

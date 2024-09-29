@@ -26,8 +26,12 @@ const appointmentSchema = new Schema({
   end: {
     type: Date,
     required: true
+  },
+  chatHistory: {
+    type: [Schema.Types.Mixed],
+    required: false
   }
-});
+}, { timestamps: true });
 
 // Export the model
 const Appointment = mongoose.models.Appointment || mongoose.model('Appointment', appointmentSchema);

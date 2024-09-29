@@ -6,6 +6,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import Link from "next/link";
 
 export default function AppointmentCalendar({ startDate, ...props }) {
     const initialWeek = startOfWeek(startDate ? new Date(startDate) : new Date(), { weekStartsOn: 1 });
@@ -202,6 +203,8 @@ export default function AppointmentCalendar({ startDate, ...props }) {
                                 <div>
                                     <strong>Total Cost:</strong> ${(selectedAppointment.costPerHour * ((new Date(selectedAppointment.end) - new Date(selectedAppointment.start)) / (1000 * 60 * 60))).toFixed(2)}
                                 </div>
+                                <hr />
+                                <Link href={`/patient/chat_history/${selectedAppointment._id}`} >View patient chat logs</Link>
                             </div>
                             <div className="modal-footer">
                                 <button type="button" className="btn btn-secondary" onClick={handleCloseModal}>Close</button>

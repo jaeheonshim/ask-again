@@ -5,7 +5,8 @@ import {useRouter} from 'next/navigation';
 export function UserEmergencyComponent() {
     return <div>
         <div className="border-solid border-2 border-black rounded-lg px-3 mb-3">
-            <h1>Call 911</h1>
+            <h3>Seek Medical Attention Now</h3>
+            <p>askAgain cannot properly diagnose your issue.</p>
         </div>
     </div>
 
@@ -43,7 +44,7 @@ export function DefaultTextComponent({ data }) {
 </div>
 }
 
-export function SuggestDoctors({ data }) {
+export function SuggestDoctors({ data, searchDoctor }) {
     const router = useRouter();
 
     return <div>
@@ -53,7 +54,7 @@ export function SuggestDoctors({ data }) {
             Bandage suggests that you consult a <pre>{data.speciality}</pre>. {data.description}
         </div>
 
-        <button type="button" onClick={() => {router.push(`patient/finddoctors?speciality=${data.speciality}`)}} class="btn btn-primary mt-2">Search for {data.speciality} on AskAgain</button>
+        <button type="button" onClick={() => searchDoctor(data.speciality)} class="btn btn-primary mt-2">Search for {data.speciality} on AskAgain</button>
     </div>
 </div>
 }

@@ -72,8 +72,10 @@ export default function ConfirmDocModal({ doctor }) {
 
   const handleSaveChanges = () => {
     if(!validateData()) return;
-
-    createAppointment(doctor._id, startDate, endDate).then(() => {
+    
+    const chatHistoryData = JSON.parse(localStorage.getItem("user_llm_chat_data") || "[]");
+    console.log(chatHistoryData);
+    createAppointment(doctor._id, startDate, endDate, chatHistoryData).then(() => {
       router.push(`/patient?newappt=${encodeURIComponent(startDate.toISOString())}`);
     });
   };
