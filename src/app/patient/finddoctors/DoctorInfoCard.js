@@ -1,99 +1,133 @@
 import Image from 'next/image';  // For handling the image
 import Link from 'next/link';    // For linking to edit profile or more details
+import placeholder from "./placeholder.jpg";  // Placeholder image
 
 export default function DoctorInfoCard({ doctor }) {
     return (
-        <div style={styles.cardContainer}>
-            {/* Placeholder Image */}
-            <div style={styles.imageContainer}>
-                <Image
-                    src="/placeholder.jpg"  // Add your placeholder image in the public folder
-                    alt="Doctor Profile"
-                    width={80}
-                    height={80}
-                    style={styles.image}
-                />
-            </div>
+        <div style={styles.wrapper}>
+            <div style={styles.cardContainer}>
+                {/* Placeholder Image or Doctor's Image */}
+                <div style={styles.imageContainer}>
+                    <Image
+                        src={placeholder}  // Placeholder image
+                        alt={`${doctor.firstName} ${doctor.lastName}`}
+                        width={500}
+                        style={styles.image}
+                    />
+                </div>
 
-            <div style={styles.content}>
-                {/* Doctor's Name */}
-                <h2 style={styles.name}>{doctor.firstName} {doctor.lastName}</h2>
-                {/* Doctor's Specialization */}
-                <p style={styles.speciality}>{doctor.speciality}</p>
-                {/* Doctor's Bio */}
-                <div style={styles.bioContainer}>
-                    <h3 style={styles.bioTitle}>About</h3>
-                    <p style={styles.bioText}>{doctor?.bio || "This doctor hasn't written a bio yet."}</p>
+                <div style={styles.content}>
+                    {/* Doctor's Name */}
+                    <h2 style={styles.name}>{doctor.firstName} {doctor.lastName}</h2>
+                    {/* Doctor's Specialization */}
+                    <p style={styles.speciality}>{doctor.speciality}</p>
+                    {/* Doctor's Bio */}
+                    <div style={styles.bioContainer}>
+                        <h3 style={styles.bioTitle}>About</h3>
+                        <p style={styles.bioText}>{doctor?.bio || "This doctor hasn't written a bio yet."}</p>
+                    </div>
+                    {/* Years of Experience */}
+                    <div style={styles.infoContainer}>
+                        <p><strong>Experience:</strong> {doctor?.yearsOfExperience || 'N/A'} years</p>
+                        {/* Consultation Fee */}
+                        <p><strong>Consultation Fee:</strong> ${doctor?.consultationFee || 'N/A'}</p>
+                    </div>
+                    {/* Book Consultation Button */}
+                    <Link href={`/patient/confirmdoc?id=${doctor._id}`}>
+                        <button style={styles.button}>
+                            Book consultation
+                        </button>
+                    </Link>
                 </div>
-                {/* Years of Experience */}
-                <div style={styles.infoContainer}>
-                    <p><strong>Experience:</strong> {doctor?.yearsOfExperience} years</p>
-                    {/* Consultation Fee */}
-                    <p><strong>Consultation Fee:</strong> ${doctor?.consultationFee}</p>
-                </div>
-                {/* Book Consultation Button */}
-                <Link href={`/patient/confirmdoc?id=${doctor._id}`}>
-                    <button style={styles.button}>
-                        Book consultation
-                    </button>
-                </Link>
             </div>
         </div>
     );
 }
 
-
 const styles = {
     cardContainer: {
-        width: '300px',
-        borderRadius: '10px',
+        width: '400px',  // Set a standard width for the card
+        borderRadius: '15px',
         overflow: 'hidden',
-        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-        backgroundColor: '#fff',
+        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+        backgroundColor: '#fff',  // White background for the card
         textAlign: 'center',
-        padding: '20px',
-        margin: '20px auto',  // Center the card horizontally
+        padding: '20px 20px 30px',  // Add padding for spacing
+        margin: '40px auto',  // Center the card horizontally
+        position: 'relative',  // Ensure relative positioning for the card content
     },
     imageContainer: {
-        marginBottom: '15px',
+        display: 'flex',
+        justifyContent: 'center',  // Center the image horizontally
+        marginBottom: '10px',
+    },
+    imageWrapper: {
+        position: 'relative',
+        top: '-50px',  // Pull the image upwards by 50px to simulate overlap
+        width: '100px',
+        height: '100px',
+        borderRadius: '50%',
+        backgroundColor: '#fff',
+        border: '4px solid #fff',  // White border for the image
+        boxShadow: '0 2px 6px rgba(0, 0, 0, 0.1)',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     image: {
+        width: '100%',
+        height: '100%',
         borderRadius: '50%',
+        objectFit: 'cover',  // Ensure the image fills the circle without distortion
     },
     content: {
-        padding: '0 10px',
+        paddingTop: '60px',  // Adjust top padding to provide space for the image
+        padding: '0 15px',
     },
     name: {
-        fontSize: '20px',
+        fontSize: '22px',
         fontWeight: 'bold',
-        margin: '10px 0',
+        margin: '10px 0 5px',  // Consistent margins for name and title
+        color: '#6a0dad',  // Purple text color for the name
     },
     speciality: {
-        color: '#777',
+        color: '#6a0dad',  // Purple text color for the speciality
         marginBottom: '20px',
+        fontSize: '16px',
     },
     bioContainer: {
-        marginBottom: '20px',
+        marginBottom: '25px',
+        textAlign: 'left',
     },
     bioTitle: {
-        fontSize: '16px',
+        fontSize: '18px',
         fontWeight: 'bold',
         marginBottom: '10px',
+        textAlign: 'left',
+        color: '#6a0dad',  // Purple color for the bio title
     },
     bioText: {
         fontSize: '14px',
-        color: '#666',
+        color: '#333',  // Darker gray text for the bio content
+        lineHeight: '1.6',
     },
     infoContainer: {
-        marginBottom: '20px',
+        marginBottom: '25px',
+        textAlign: 'left',
+        color: '#6a0dad',  // Purple color for the experience and consultation fee
     },
     button: {
-        backgroundColor: '#007bff',
-        color: '#fff',
-        padding: '10px 20px',
+        backgroundColor: '#6a0dad',  // Purple background for the button
+        color: '#fff',  // White text on the button
+        padding: '12px 30px',
         border: 'none',
         borderRadius: '5px',
         cursor: 'pointer',
-        fontSize: '14px',
+        fontSize: '16px',
+        width: '100%',
+        transition: 'background-color 0.3s ease',  // Smooth transition for hover effects
     },
+    buttonHover: {
+        backgroundColor: '#540a9d',  // Darker purple background on hover
+    }
 };
