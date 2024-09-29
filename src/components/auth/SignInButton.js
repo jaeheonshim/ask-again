@@ -4,14 +4,19 @@
 import { signIn } from '@/auth';
 import React from 'react';
 
-const handleSignIn = async () => {
+const handleSignInPatient = async () => {
   "use server";
-  await signIn(undefined, { callbackUrl: `/after-sign-in?userType=patient` });
+  await signIn(undefined, { redirectTo: `/after-sign-in?userType=patient` });
+};
+
+const handleSignInDoctor = async () => {
+  "use server";
+  await signIn(undefined, { redirectTo: `/after-sign-in?userType=doctor` });
 };
 
 export async function PatientSignIn() {
   return (
-    <form action={handleSignIn}>
+    <form action={handleSignInPatient}>
       <button
         type='submit'
         className="btn btn-outline-primary mx-2 hover:bg-gray-200 active:bg-gray-400"
@@ -31,7 +36,7 @@ export async function PatientSignIn() {
 export async function DoctorSignIn() {
 
   return (
-    <form action={handleSignIn}>
+    <form action={handleSignInDoctor}>
       <button
         type='submit'
         className="btn btn-primary mx-2"
@@ -49,7 +54,7 @@ export async function DoctorSignIn() {
 export async function FindDoctor() {
 
   return (
-    <form action={handleSignIn}>
+    <form action={handleSignInPatient}>
       <button
         type="submit"
         className="btn btn-outline-primary mx-2 hover:bg-gray-200"
