@@ -14,16 +14,16 @@ const Header = async ({ user }) => {
       <nav>
         <ul className="d-flex list-unstyled m-0">
           <li className="mx-3">
-            <a href="#home" style={{ color: "#333", textDecoration: "none" }}>Home</a>
+            <a href="/" style={{ color: "#333", textDecoration: "none" }}>Home</a>
           </li>
           <li className="mx-3">
-            <a href="#about" style={{ color: "#333", textDecoration: "none" }}>About Us</a>
+            <a href="/about" style={{ color: "#333", textDecoration: "none" }}>About Us</a>
           </li>
           <li className="mx-3">
-            <a href="#how" style={{ color: "#333", textDecoration: "none" }}>How It Works</a>
+            <a href="/howitworks" style={{ color: "#333", textDecoration: "none" }}>How It Works</a>
           </li>
           <li className="mx-3">
-            <a href="#contact" style={{ color: "#333", textDecoration: "none" }}>Contact</a>
+            <a href="/contact" style={{ color: "#333", textDecoration: "none" }}>Contact</a>
           </li>
         </ul>
       </nav>
