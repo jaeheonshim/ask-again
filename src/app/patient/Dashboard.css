@@ -1,0 +1,164 @@
+/* General container styling */
+.container-fluid {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #ffffff; /* White background */
+}
+
+/* Navigation tabs styling */
+.nav-tabs .nav-link {
+    padding: 12px 20px;
+    margin-right: 5px;
+    border-radius: 8px;
+    background-color: #ffffff; /* White background */
+    color: #6a0dad; /* Purple text */
+    transition: all 0.3s ease;
+}
+
+.nav-tabs .nav-link.active {
+    background-color: #6a0dad; /* Purple background for active tab */
+    color: #ffffff; /* White text */
+    box-shadow: 0 4px 8px rgba(106, 13, 173, 0.3); /* Purple shadow */
+}
+
+.nav-tabs .nav-link:hover {
+    background-color: #f2e9f8; /* Light purple background on hover */
+    color: #6a0dad; /* Purple text */
+}
+
+/* Primary button styling */
+.btn-primary {
+    background-color: #6a0dad; /* Purple background */
+    border-color: #6a0dad; /* Purple border */
+    color: #ffffff; /* White text */
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #540a9d; /* Darker purple on hover */
+    box-shadow: 0 4px 12px rgba(106, 13, 173, 0.4); /* Purple shadow */
+}
+
+/* Success alert styling */
+.alert-success {
+    padding: 15px;
+    background-color: #ffffff; /* White background */
+    color: #6a0dad; /* Purple text */
+    border-radius: 10px;
+    text-align: center;
+    margin-bottom: 20px;
+    border: 2px solid #6a0dad; /* Purple border */
+    transition: all 0.3s ease;
+}
+
+/* Tab content styling */
+.tab-content {
+    background-color: #ffffff; /* White background */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(106, 13, 173, 0.1); /* Purple shadow */
+    color: #6a0dad; /* Purple text */
+}
+
+/* Calendar container */
+.calendar-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    background-color: #ffffff; /* White background */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(106, 13, 173, 0.1); /* Purple shadow */
+}
+
+/* Calendar header for days of the week */
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    background-color: #f2e9f8; /* Light purple background */
+    border-radius: 8px;
+    margin-bottom: 10px;
+    color: #6a0dad; /* Purple text */
+}
+
+/* Individual days in the calendar */
+.calendar-day {
+    flex: 1;
+    padding: 10px;
+    border-left: 2px solid #6a0dad; /* Purple border between days */
+    text-align: center;
+    font-weight: bold;
+    font-size: 16px;
+    position: relative;
+    min-height: 300px; /* Ensuring all days have the same height */
+    color: #6a0dad; /* Purple text */
+}
+
+/* Remove border from the first day */
+.calendar-day:first-child {
+    border-left: none;
+}
+
+/* Appointment card inside calendar days */
+.calendar-day .appointment-card {
+    margin-top: 15px;
+    background-color: #ffffff; /* White background */
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(106, 13, 173, 0.1); /* Purple shadow */
+    text-align: left;
+    font-size: 14px;
+    position: relative;
+    color: #6a0dad; /* Purple text */
+}
+
+/* Styling for appointment times */
+.appointment-time {
+    font-weight: bold;
+    font-size: 14px;
+    margin-bottom: 5px;
+    color: #6a0dad; /* Purple text */
+}
+
+/* Styling for appointment details */
+.appointment-details {
+    font-size: 13px;
+    color: #6a0dad; /* Purple text */
+}
+
+/* Vertical lines extending the entire day column */
+.calendar-day::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 2px;
+    height: 100%;
+    background-color: #6a0dad; /* Purple vertical lines */
+    z-index: -1;
+}
+
+/* Navigation buttons styling */
+.calendar-nav-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+/* Styling for Prev and Next buttons in the calendar navigation */
+.calendar-nav-buttons .btn-primary {
+    background-color: #6a0dad; /* Purple background */
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    font-size: 14px;
+    color: #ffffff; /* White text */
+}
+
+.calendar-nav-buttons .btn-primary:hover {
+    background-color: #540a9d; /* Darker purple on hover */
+}

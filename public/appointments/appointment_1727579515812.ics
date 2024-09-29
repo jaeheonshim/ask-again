@@ -1,0 +1,21 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+CALSCALE:GREGORIAN
+PRODID:adamgibbons/ics
+METHOD:PUBLISH
+X-PUBLISHED-TTL:PT1H
+BEGIN:VEVENT
+UID:NX0lV3wOB-O4x9d8YKTw6
+SUMMARY:Consultation with Dr. Ana Santos
+DTSTAMP:20240929T031155Z
+DTSTART:20241005T053000Z
+DTEND:20241005T063000Z
+DESCRIPTION:Appointment for a consultation in Family Medicine Physician.
+URL:https://example.com/meeting/66f86f700dd3504cc2633c72/66f8789d0dd3504cc2
+	8165e4
+LOCATION:undefined\, Rio de Janeiro\, Brazil
+STATUS:CONFIRMED
+ORGANIZER;CN="Dr. Ana Santos":MAILTO:ana.santos@familycare.com
+ATTENDEE;CN="undefined undefined":mailto:anayp1805@gmail.com
+END:VEVENT
+END:VCALENDAR

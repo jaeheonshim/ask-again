@@ -1,0 +1,94 @@
+.hover-expand-card {
+    transition: all 0.3s ease; /* Smooth transition */
+    transform: scale(1); /* Default scale */
+}
+
+.hover-expand-card:hover {
+    transform: scale(1.05); /* Slightly increase size on hover */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Add shadow for depth */
+    z-index: 10; /* Bring the element in front during hover */
+}
+
+/* Primary button styling */
+.btn-primary {
+    background-color: #6a0dad; /* Purple background */
+    border-color: #6a0dad; /* Purple border */
+    color: #ffffff; /* White text */
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #540a9d; /* Darker purple on hover */
+    box-shadow: 0 4px 12px rgba(106, 13, 173, 0.4); /* Purple shadow */
+    color: #ffffff;
+}
+
+/* For disabled state */
+.btn-primary:disabled {
+    background-color: #b399d4; /* Light purple for disabled state */
+    border-color: #b399d4;
+}
+/* Calendar container */
+.calendar-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%; /* Ensure full width of the screen or parent container */
+    max-width: none; /* Remove any max-width limitation */
+    margin: 0 auto; /* Center the calendar horizontally */
+}
+
+/* Calendar header for days of the week */
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    background-color: #e9ecef;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+/* Individual days in the calendar */
+.calendar-day {
+    flex: 1;
+    padding: 10px;
+    border-left: 2px solid #dee2e6;
+    text-align: center;
+    font-weight: bold;
+    font-size: 16px;
+    position: relative;
+    min-height: 300px;
+    width: 100%; /* Ensure days expand fully across available space */
+}
+
+/* Remove border from the first day */
+.calendar-day:first-child {
+    border-left: none;
+}
+
+/* Appointment card inside calendar days */
+.calendar-day .appointment-card {
+    margin-top: 15px;
+    background-color: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    font-size: 14px;
+    position: relative;
+}
+
+/* General container styling to make everything inside wider */
+.container-fluid {
+    max-width: none; /* Remove any max-width limitation */
+    width: 100%; /* Ensure full width of the screen or parent container */
+    padding: 20px;
+    margin: 0 auto; /* Center it on the page */
+}
