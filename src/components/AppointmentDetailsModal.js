@@ -41,9 +41,9 @@ export default function AppointmentDetailsModal({selectedAppointment, handleClos
         <div className="modal-dialog">
             <div className="modal-content">
                 <div className="modal-header">
-                    <h5 className="modal-title" id="appointmentModalLabel">
+                    <h4 className="modal-title" id="appointmentModalLabel">
                         Appointment Details
-                    </h5>
+                    </h4>
                     <button type="button" className="btn-close" aria-label="Close" onClick={handleCloseModal}></button>
                 </div>
                 <div className="modal-body">

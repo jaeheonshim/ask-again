@@ -9,6 +9,7 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { savePatientInformation } from './actions';
 import { createUserPatientProfile } from './actions';
+import { FaTextWidth } from 'react-icons/fa';
 
 
 const PatientRegistrationForm = () => {
@@ -189,7 +190,6 @@ const PatientRegistrationForm = () => {
   <h1 style={styles.heading}>Patient Registration</h1>
   <form onSubmit={handleSubmit} style={styles.form}>
     {/* Basic Information */}
-    <h2 style={styles.sectionHeading}>Basic Information</h2>
     <div style={styles.section}>
       {/* Full Name */}
       <div style={styles.inputGroup}>
@@ -299,52 +299,69 @@ const styles = {
   container: {
     maxWidth: '800px',
     margin: '0 auto',
-    padding: '2rem',
-    backgroundColor: '#f9f9f9',
+    padding: '1.5rem',
     borderRadius: '8px',
-    color: 'black',
+    color: '#333', // Darker text color for readability
   },
   form: {
     display: 'flex',
     flexDirection: 'column',
-    color: 'black',
+    color: '#333', // Darker text
   },
   section: {
-    marginBottom: '2rem',
-    color: 'black',
+    marginBottom: '1rem',
+    color: '#333',
   },
   inputGroup: {
     marginBottom: '1rem',
-    color: 'black',
+    color: '#333',
   },
   input: {
     width: '100%',
-    padding: '0.5rem',
+    padding: '0.75rem',
     fontSize: '1rem',
     borderRadius: '4px',
     border: '1px solid #ccc',
-    color: 'black',
+    color: '#333',
+    backgroundColor: '#fff',
+    transition: 'border-color 0.3s',
+  },
+  inputHover: {
+    borderColor: '#673AB7', // Purple when hovered
   },
   label: {
     display: 'block',
     marginBottom: '0.5rem',
-    color: 'black',
+    color: '#673AB7', // Purple for labels
+    fontWeight: 'bold',
   },
   heading: {
+    fontWeight: 'bold',
     textAlign: 'center',
-    color: 'black',
+    color: '#673AB7', // Purple heading
+    fontSize: '2rem',
+    marginBottom: '1.5rem',
   },
   sectionHeading: {
-    color: 'black',
+    color: '#673AB7',
+    fontSize: '1.5rem',
+    marginBottom: '1rem',
+    borderBottom: '2px solid #E0E0E0',
+    paddingBottom: '0.5rem',
   },
   button: {
     padding: '1rem',
     fontSize: '1.2rem',
-    backgroundColor: '#007bff',
+    backgroundColor: '#673AB7', // Purple button
     color: '#fff',
     border: 'none',
     borderRadius: '4px',
     cursor: 'pointer',
+    transition: 'background-color 0.3s',
+    textAlign: 'center',
+  },
+  buttonHover: {
+    backgroundColor: '#5E35B1', // Darker purple on hover
   },
 };
 
@@ -353,24 +370,35 @@ const customSelectStyles = {
   control: (provided) => ({
     ...provided,
     width: '100%',
-    color: 'black',
+    backgroundColor: '#fff',
+    borderColor: '#673AB7', // Purple border
+    borderRadius: '4px',
+    padding: '0.5rem',
+    color: '#333',
+    fontSize: '1rem',
+    boxShadow: 'none',
+    '&:hover': {
+      borderColor: '#5E35B1', // Darker purple on hover
+    },
   }),
   singleValue: (provided) => ({
     ...provided,
-    color: 'black',
+    color: '#333', // Darker text
   }),
   input: (provided) => ({
     ...provided,
-    color: 'black',
+    color: '#333',
   }),
   placeholder: (provided) => ({
     ...provided,
-    color: '#666',
+    color: '#999',
   }),
   menu: (provided) => ({
     ...provided,
-    color: 'black',
+    backgroundColor: '#fff',
+    color: '#333',
   }),
+
 };
 
 export default PatientRegistrationForm;

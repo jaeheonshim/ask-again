@@ -3,17 +3,28 @@ body {
     font-family: 'Arial', sans-serif;
     line-height: 1.75;
     color: #333;
-    background-color: #f9f9f9;
+    
 }
 
 .container {
-    max-width: 1140px;
+    max-width: 1340px;
     margin: auto;
     padding: 0 15px;
 }
 
-h1, h2 {
-    color: #673AB7;
+.header {
+    margin-bottom: 40px;
+    font-size: 3rem;
+}
+
+.page-title {
+    font-size: 3.5rem;
+    font-weight: bold;
+    color: #673AB7; /* Keep title consistent with purple */
+}
+
+.page-title-how-it-works {
+    color: #673AB7; /* Change the title color to purple */
 }
 
 p {
@@ -24,25 +35,59 @@ p {
 ul {
     padding-left: 20px;
     list-style-type: disc;
-    margin-bottom: 2rem;
+    margin-bottom: 0;
 }
 
 /* Boxed Sections */
 .box {
-    background-color: #fff;
+    background-color: #f9f9f9;
+    padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    padding: 30px;
-    margin-bottom: 20px;
+    padding: 10px; /* Reduced padding */
+    margin-bottom: 0px; /* Reduced bottom margin */
+}
+
+.step-title {
+    color: #673AB7;
+    font-size: 1.5rem;
+    margin-bottom: 5px; /* Reduced margin-bottom */
+}
+
+.lead {
+    font-size: 1.25rem;
+    color: #555;
+    max-width: 600px;
+    margin: 0 auto;
 }
 
 /* Footer */
 footer {
     background-color: #673AB7;
     color: white;
-    padding: 20px 0;
+    padding: 0px 0;
+    width: 100%;
 }
 
 footer p {
     margin: 0;
+}
+
+/* Columns */
+.steps {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 10px;
+}
+
+@media (min-width: 768px) {
+    .steps {
+        grid-template-columns: repeat(2, 1fr); /* Two columns on larger screens */
+    }
+}
+
+@media (min-width: 1024px) {
+    .steps {
+        grid-template-columns: repeat(3, 1fr); /* Three columns on even larger screens */
+    }
 }

@@ -4,8 +4,9 @@ import {useRouter} from 'next/navigation';
 
 export function UserEmergencyComponent() {
     return <div>
-        <div className="border-solid border-2 border-black rounded-lg px-3 mb-3">
-            <h3>Seek Medical Attention Now</h3>
+        <small>Bandage</small>
+         <div className="border-solid border-2 border-purple rounded-lg p-4">
+            <h4>Seek Medical Attention Now</h4>
             <p>askAgain cannot properly diagnose your issue.</p>
         </div>
     </div>
@@ -48,7 +49,7 @@ export function SuggestDoctors({ data, searchDoctor }) {
     const router = useRouter();
 
     return (
-        <div className="rounded-lg p-4 mb-4">
+        <div className="rounded-lg p-4 -md mb-4">
             <small className="text-gray-500 font-medium"></small>
             <div className="border border-gray-300 rounded-lg p-4 mt-2 bg-gray-50">
                 <div className="text-gray-700">

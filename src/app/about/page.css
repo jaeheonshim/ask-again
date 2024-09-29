@@ -1,53 +1,71 @@
-/* Global Styles */
-body {
-    font-family: 'Arial', sans-serif;
-    line-height: 1.75;
-    color: #333;
-    background-color: #f9f9f9;
-}
-
 .container {
-    max-width: 1140px;
-    margin: auto;
-    padding: 0 15px;
-}
-
-h1, h2 {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+  }
+  
+  .header {
+    margin-bottom: 40px;
+  }
+  
+  .header h1 {
+    font-size: 3rem;
+    font-weight: bold;
     color: #673AB7;
-}
-
-p {
-    font-size: 1.1rem;
-    margin-bottom: 1.5rem;
-}
-
-ul {
-    padding-left: 20px;
-    list-style-type: disc;
-    margin-bottom: 2rem;
-}
-
-/* Boxed Sections */
-.box {
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .header p {
+    font-size: 1.25rem;
+    color: #333;
+    margin-top: 10px;
+  }
+  
+  .columns {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .box {
+    background-color: #f9f9f9;
     padding: 30px;
-    margin-bottom: 20px;
-}
-
-/* Section Padding */
-section {
-    padding: 40px 0;
-}
-
-/* Footer */
-footer {
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    flex: 1;
+    min-width: 280px;
+    max-width: 48%;
+    text-align: center;
+  }
+  
+  .full-width-box {
+    max-width: 100%;
+    margin-top: 20px; /* Added margin to create space above */
+  }
+  
+  .box h2 {
+    color: #673AB7;
+    font-size: 1.75rem;
+    margin-bottom: 15px;
+  }
+  
+  .box p {
+    font-size: 1.1rem;
+    color: #555;
+    line-height: 1.75;
+  }
+  
+  footer {
     background-color: #673AB7;
-    color: white;
-    padding: 20px 0;
-}
-
-footer p {
+    padding: 20px;
+    margin-top: 40px;
+    width: 100%;
+    text-align: center;
+  }
+  
+  footer p {
     margin: 0;
-}
+    font-size: 1rem;
+    color: #fff;
+  }
+  
