@@ -88,6 +88,8 @@ export default function AppointmentDetailsModal({selectedAppointment, handleClos
                             setDoctorNotes(e.target.value);
                         }}></textarea>
                     </div>
+                    <hr />
+                    <a href="" className="btn btn-primary">Join Meeting</a>
                 </div>
                 <div className="modal-footer">
                     {editable ?
