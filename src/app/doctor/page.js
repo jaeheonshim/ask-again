@@ -6,6 +6,7 @@ import Link from 'next/link';
 import "./page.css";
 import AppointmentCalendar from '@/components/AppointmentCalendar';
 import { redirect } from 'next/navigation';
+import DoctorDashboardComponent from './Dashboard';
 
 export default async function DoctorDashboard() {
     await connectMongo();
@@ -21,7 +22,7 @@ export default async function DoctorDashboard() {
 
     return (
         <main>
-            <AppointmentCalendar style={{minHeight: 100}}/>
+            <DoctorDashboardComponent />
         </main>
     );
 }

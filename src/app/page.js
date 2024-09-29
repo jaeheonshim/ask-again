@@ -33,8 +33,6 @@ export default async function Home() {
         background: "white", // Keep the background white
       }}
     >
-      <Header />
-
       <main className="text-center flex-grow-1 d-flex flex-column align-items-center justify-content-center">
         <h1
           className="display-4 mb-4"

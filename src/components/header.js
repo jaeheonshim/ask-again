@@ -1,14 +1,10 @@
-"use client"; // Add this to make the component a Client Component
+"use server"; // Add this to make the component a Client Component
 
-import React from 'react';
+import { auth, signOut } from "@/auth";
 import { PatientSignIn, DoctorSignIn } from "@/components/auth/SignInButton"; // Assuming you have these buttons as components
-import { signOut } from 'next-auth/react';
 
-const Header = ({ user }) => {
-  const handleSignOut = () => {
-    // Sign-out logic, for now, just redirect to a sign-out page
-    signOut({redirectTo: '/'});
-  };
+const Header = async ({ user }) => {
+  const session = await auth();
 
   return (
     <header className="d-flex justify-content-between align-items-center p-3">
@@ -32,13 +28,17 @@ const Header = ({ user }) => {
         </ul>
       </nav>
       <div className="flex justify-around items-center gap-0.1">
-        {user ? (
-          <button
-            className="btn btn-outline-danger mx-2"
-            onClick={handleSignOut}
-          >
-            Sign Out
-          </button>
+        {session?.user ? (
+          <form action={async () => {
+            "use server"
+            await signOut({ redirectTo: '/' });
+          }}>
+            <button
+              className="btn btn-outline-danger mx-2"
+            >
+              Sign Out
+            </button>
+          </form>
         ) : (
           <>
             {/* Show Sign In as Patient and Doctor buttons when no user is logged in */}

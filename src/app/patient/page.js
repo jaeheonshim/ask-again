@@ -24,7 +24,6 @@ export default async function PatientDashboard({ searchParams }) {
     return (
         <>
             {/* Render the Header and pass the user data */}
-            <Header user={session.user} />
             <PatientDashboardComponent newappt={newappt} />
         </>
     );

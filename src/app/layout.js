@@ -2,6 +2,7 @@ import localFont from "next/font/local";
 import 'bootstrap/dist/css/bootstrap.css';
 import "./globals.css";
 import { SessionProvider } from 'next-auth/react';
+import Header from "@/components/header";
 
 
 const geistSans = localFont({
@@ -27,6 +28,7 @@ export default function RootLayout({ children }) {
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <SessionProvider>
+        <Header />
 
         {children}
         </SessionProvider>
