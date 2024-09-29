@@ -1,4 +1,4 @@
-// app/after-sign-in/page.js
+"use server"
 
 import { redirect } from "next/navigation";
 import { auth } from "@/auth";
@@ -8,35 +8,25 @@ import connectMongo from "@/mongoose";
 export default async function AfterSignIn({ searchParams }) {
   const userType = searchParams.userType;
 
-  if (!userType || !["patient", "doctor"].includes(userType)) {
-    redirect("/");
-    return;
-  }
+  await connectMongo();
+  const session = await auth();
 
-  try {
-    await connectMongo();
-    const session = await auth();
+  if (session?.user) {
+    let userModel = await User.findOne({ userId: session.user.id });
 
-    if (session?.user) {
-      let userModel = await User.findOne({ userId: session.user.id });
-
-      if (!userModel) {
-        userModel = new User({ userId: session.user.id });
-      }
-
-      userModel.userType = userType;
-      await userModel.save();
-
-      if (userType === "doctor") {
-        redirect("/doctor");
-      } else {
-        redirect("/patient");
-      }
-    } else {
-      redirect("/");
+    if (!userModel) {
+      userModel = new User({ userId: session.user.id });
     }
-  } catch (error) {
-    console.error("Error during after sign-in process:", error);
-    redirect("/");
+
+    userModel.userType = userType;
+    await userModel.save();
+
+    if (userType === "doctor") {
+      return redirect("/doctor");
+    } else {
+      return redirect("/patient");
+    }
+  } else {
+    return redirect("/");
   }
 }
