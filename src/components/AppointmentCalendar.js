@@ -7,6 +7,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import Link from "next/link";
+import "./AppointmentCalender.css"
 
 export default function AppointmentCalendar({ startDate, ...props }) {
     const initialWeek = startOfWeek(startDate ? new Date(startDate) : new Date(), { weekStartsOn: 1 });
@@ -93,17 +94,19 @@ export default function AppointmentCalendar({ startDate, ...props }) {
     return (
         <div {...props}>
             <div className="d-flex justify-content-center mb-4" style={{ position: 'relative' }}>
-                <div className="btn-group" role="group" aria-label="Basic example">
-                    <button type="button" className="btn btn-primary" onClick={handlePrevWeek} disabled={currentWeek <= today}>Prev</button>
-                    <button
-                        type="button"
-                        className="btn btn-primary"
-                        onClick={() => setIsCalendarOpen(!isCalendarOpen)}
-                    >
-                        Week of {format(currentWeek, 'MMM dd')}
-                    </button>
-                    <button type="button" className="btn btn-primary" onClick={handleNextWeek}>Next</button>
-                </div>
+                <button type="button" className="btn btn-primary me-3" onClick={handlePrevWeek} disabled={currentWeek <= today}>
+                    Prev
+                </button>
+                <button
+                    type="button"
+                    className="btn btn-primary me-3"
+                    onClick={() => setIsCalendarOpen(!isCalendarOpen)}
+                >
+                    Week of {format(currentWeek, 'MMM dd')}
+                </button>
+                <button type="button" className="btn btn-primary" onClick={handleNextWeek}>
+                    Next
+                </button>
 
                 {isCalendarOpen && (
                     <div className="calendar-popup" style={{
@@ -145,17 +148,20 @@ export default function AppointmentCalendar({ startDate, ...props }) {
                                     onClick={() => handleAppointmentClick(appointment)}
                                     style={{ cursor: 'pointer' }} 
                                 >
-                                    <div className="card-body p-2 text-wrap text-break">
-                                        <h6>{format(new Date(appointment.start), 'p')} - {format(new Date(appointment.end), 'p')}</h6>
-                                        <div>
-                                            Appointment with {appointment.doctor.firstName} {appointment.doctor.lastName}
-                                            <ul>
-                                                <li><small>{appointment.doctor.speciality}</small></li>
-                                                <li><small>{appointment.doctor.email}</small></li>
-                                                <li><small>{appointment.doctor.phoneNumber}</small></li>
-                                            </ul>
-                                        </div>
-                                    </div>
+                                    <div 
+    key={appointment._id} 
+    className="card m-2 hover-expand-card" 
+    onClick={() => handleAppointmentClick(appointment)}
+    style={{ cursor: 'pointer' }} 
+>
+    <div className="card-body p-2 text-wrap text-break">
+        <h6>{format(new Date(appointment.start), 'p')} - {format(new Date(appointment.end), 'p')}</h6>
+        <div>
+            Appointment with {appointment.doctor.firstName} {appointment.doctor.lastName}
+        </div>
+    </div>
+</div>
+
                                 </div>
                             ))
                         }
