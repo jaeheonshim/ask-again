@@ -7,6 +7,7 @@ import PastAppointmentsCalendar from "@/components/PastAppointmentsCalender";
 
 export default function PatientDashboardComponent({newappt}) {
     const [activeTab, setActiveTab] = useState('upcoming');
+    const router = useRouter();
 
     return (
         <div className="container-fluid mt-4">
@@ -33,6 +34,14 @@ export default function PatientDashboardComponent({newappt}) {
                         Past
                     </button>
                 </li>
+                <li className="nav-item">
+                    <button
+                        className={`nav-link ${activeTab === 'new' ? 'active' : ''}`}
+                        onClick={() => setActiveTab(() => router.push('/chat'))}
+                    >
+                        New Appointment
+                    </button>
+                </li>
             </ul>
 
             {/* Tab Content */}
@@ -46,6 +55,11 @@ export default function PatientDashboardComponent({newappt}) {
                 {activeTab === 'past' && (
                     <div className="tab-pane fade show active">
                         <PastAppointmentsCalendar />
+                    </div>
+                )}
+                {activeTab === 'new' && (
+                    <div onClick={() => router.push('/chat')}  className="tab-pane fade show active">
+                        
                     </div>
                 )}
             </div>
