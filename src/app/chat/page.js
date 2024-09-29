@@ -94,47 +94,50 @@ const Chatbot = ({ onClose }) => {
   }, []);
 
   return (
-    <div className='fixed bottom-0 left-0 mb-4 ml-4 z-50'>
-      <div
-        className='bg-white border border-gray-300 p-4 rounded-lg shadow-md font-Mono flex flex-col justify-between'
-        style={{ width: '350px', height: '500px' }}
-      >
-        {/* Close Button */}
-        <div className='flex justify-between mb-2'>
-          <h2 className='text-lg font-bold'>New Appointment</h2>
-          <button onClick={onClose} className='text-gray-600 hover:text-gray-800 focus:outline-none'>
-            <FaWindowClose size={24} />
-          </button>
-        </div>
-
-        {/* Chat History */}
-        <div className='flex-1 overflow-y-auto mb-2'>
-          {chatHistory.map((entry, index) => (
-            <div key={index}>{parseResponse(entry)}</div>
-          ))}
-          {loading && <div className='text-center text-black'>Loading...</div>}
-        </div>
-
-        {/* Message Input */}
-        <div className='flex items-center mt-2'>
-          <input
-            disabled={loading}
-            className='w-full border border-gray-300 px-3 py-2 text-black rounded-md focus:outline-none'
-            placeholder='Type your message'
-            onKeyDown={(e) => (e.key === 'Enter' ? handleChatInput() : null)}
-            onChange={handleInput}
-            value={messageInput}
-          />
-          <button
-            className='bg-blue-500 px-4 py-2 text-white rounded-md shadow-md hover:bg-blue-600 disabled:bg-gray-500 focus:outline-none ml-2'
-            disabled={messageInput.trim() === '' || loading}
-            onClick={handleChatInput}
-          >
-            <MdSend size={24} />
-          </button>
-        </div>
-      </div>
+<div className='fixed bottom-0 right-4 mb-2 mr-4 z-50'>
+  <div
+    className='bg-white border border-gray-200 p-4 rounded-lg shadow-lg font-Mono flex flex-col justify-between'
+    style={{ width: '500px', height: '600px' }} // Increased width and height
+  >
+    {/* Close Button */}
+    <div className='flex justify-between mb-2'>
+      <h2 className='text-xl font-bold text-purple-700'>Help Us Understand You!</h2> {/* Matching title styling */}
+      <button onClick={onClose} className='text-gray-500 hover:text-gray-700 focus:outline-none'>
+        <FaWindowClose size={24} />
+      </button>
     </div>
+
+    {/* Chat History */}
+    <div className='flex-1 overflow-y-auto mb-4 bg-gray-50 p-3 rounded-md'>
+      {chatHistory.map((entry, index) => (
+        <div key={index} className='m-0 p-0 rounded-md'>
+          {parseResponse(entry)}
+        </div>
+      ))}
+      {loading && <div className='text-center text-gray-600'>Loading...</div>}
+    </div>
+
+    {/* Message Input */}
+    <div className='flex items-center'>
+      <input
+        disabled={loading}
+        className='w-full border border-gray-300 px-4 py-3 text-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600'
+        placeholder='Type your message'
+        onKeyDown={(e) => (e.key === 'Enter' ? handleChatInput() : null)}
+        onChange={handleInput}
+        value={messageInput}
+      />
+      <button
+        className='bg-purple-600 px-4 py-3 text-white rounded-md shadow-md hover:bg-purple-700 disabled:bg-gray-400 focus:outline-none ml-2'
+        disabled={messageInput.trim() === '' || loading}
+        onClick={handleChatInput}
+      >
+        <MdSend size={24} />
+      </button>
+    </div>
+  </div>
+</div>
+
   );
 };
 

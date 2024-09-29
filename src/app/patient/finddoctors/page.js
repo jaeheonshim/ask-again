@@ -2,10 +2,12 @@ import DoctorInfoCard from './DoctorInfoCard';  // Doctor card component
 import Doctor from '@/models/doctor';
 import connectMongo from '@/mongoose';
 import './page.css'; // Import the CSS file
-
+import Header from '@/components/header';
+import { auth } from "@/auth";
 export default async function DoctorDashboard({ searchParams }) {
     // Ensure MongoDB connection
     await connectMongo();
+    const session = await auth();
 
     const { speciality } = searchParams;
 
@@ -21,8 +23,10 @@ export default async function DoctorDashboard({ searchParams }) {
     }
 
     return (
+        <>
+        <Header user={session.user} />
         <div className="container">
-            <h1 className="header">Doctors Specializing in {speciality}</h1>
+            <h1 className="header">Expert {speciality}s Ready To Assist You!</h1>
             <div className="grid-container">
                 {/* Render a DoctorInfoCard for each doctor */}
                 {doctors.map((doctor) => (
@@ -30,5 +34,6 @@ export default async function DoctorDashboard({ searchParams }) {
                 ))}
             </div>
         </div>
+        </>
     );
 }

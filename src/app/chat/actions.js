@@ -12,7 +12,7 @@ export async function initializeChatOnServer() {
   await connectMongo();
   const specialties = await Doctor.distinct("speciality");
   const promptFormattedSpecialties = specialties.join('\n');
-  const initialResponse = 'Hi, I am Bandage. What symptoms do you have?';
+  const initialResponse = `Hi, I am Bandage, your virtual nurse. I will connect you to the best fit doctor soon. How are you feeling?`;
 
   // Initialize conversation history
   const conversationHistory = [

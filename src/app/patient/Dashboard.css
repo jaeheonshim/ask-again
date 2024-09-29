@@ -1,12 +1,17 @@
 /* General container styling */
 .container-fluid {
-    max-width: 1200px;
+    max-width: 1400px; /* Increased max width */
     margin: 0 auto;
     padding: 20px;
     background-color: #ffffff; /* White background */
+    min-height: 400px; /* Set minimum height */
 }
 
 /* Navigation tabs styling */
+.nav-tabs {
+    border-bottom: none; /* Remove the default bottom border */
+}
+
 .nav-tabs .nav-link {
     padding: 12px 20px;
     margin-right: 5px;
@@ -14,12 +19,14 @@
     background-color: #ffffff; /* White background */
     color: #6a0dad; /* Purple text */
     transition: all 0.3s ease;
+    border: none; /* Remove border */
 }
 
 .nav-tabs .nav-link.active {
     background-color: #6a0dad; /* Purple background for active tab */
     color: #ffffff; /* White text */
     box-shadow: 0 4px 8px rgba(106, 13, 173, 0.3); /* Purple shadow */
+    border: none; /* Remove border */
 }
 
 .nav-tabs .nav-link:hover {
@@ -57,11 +64,14 @@
 
 /* Tab content styling */
 .tab-content {
-    background-color: #ffffff; /* White background */
+    background-color: #f6f6f6e4; /* White background */
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(106, 13, 173, 0.1); /* Purple shadow */
     color: #6a0dad; /* Purple text */
+    border: none; /* Remove border */
+    margin-top: 0; /* Remove any top margin */
+    min-height: 300px; /* Minimum height for tab content */
 }
 
 /* Calendar container */
@@ -72,6 +82,7 @@
     background-color: #ffffff; /* White background */
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(106, 13, 173, 0.1); /* Purple shadow */
+    border: none; /* Remove border */
 }
 
 /* Calendar header for days of the week */
@@ -83,6 +94,7 @@
     border-radius: 8px;
     margin-bottom: 10px;
     color: #6a0dad; /* Purple text */
+    border: none; /* Remove border */
 }
 
 /* Individual days in the calendar */
@@ -165,8 +177,8 @@
 
 .bigger-calendar {
     width: 100%;
-    max-width: 1400px;
-    min-height: 600px;
+    max-width: 1600px; /* Increased max width */
+    min-height: 500px; /* Set minimum height */
     margin: 0 auto;
     background-color: #c0c0c0; /* More pronounced silver background */
     padding: 30px;

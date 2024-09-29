@@ -15,7 +15,7 @@ export function UserEmergencyComponent() {
 export function UserPromptComponent({ data }) {
     return <div>
         <small>You</small>
-        <div className="border-solid border-2 border-black rounded-lg px-3 mb-3">
+        <div className="border-solid border-2 border-purple rounded-lg px-3 mb-3">
             <MarkdownRenderer content={`${data.content}`} />
         </div>
     </div>
@@ -38,7 +38,7 @@ export function DefaultTextComponent({ data }) {
 
     return <div>
     <small>Bandage</small>
-    <div className="border-solid border-2 border-black rounded-lg px-3 mb-3">
+    <div className="border-solid border-2 border-purple rounded-lg px-3 mb-3">
         <MarkdownRenderer content={content} />
     </div>
 </div>
@@ -47,14 +47,21 @@ export function DefaultTextComponent({ data }) {
 export function SuggestDoctors({ data, searchDoctor }) {
     const router = useRouter();
 
-    return <div>
-    <small>Bandage</small>
-    <div className="border-solid border-2 border-black rounded-lg px-3 mb-3 py-4">
-        <div>
-            Bandage suggests that you consult a <pre>{data.speciality}</pre>. {data.description}
+    return (
+        <div className="rounded-lg p-4 mb-4">
+            <small className="text-gray-500 font-medium"></small>
+            <div className="border border-gray-300 rounded-lg p-4 mt-2 bg-gray-50">
+                <div className="text-gray-700">
+                    <span className="font-bold">Bandage</span> suggests that you consult a <pre className="inline text-purple-700 font-medium">{data.speciality}</pre>. {data.description}
+                </div>
+                <button 
+                    type="button" 
+                    onClick={() => searchDoctor(data.speciality)} 
+                    className="mt-4 bg-purple-600 text-white px-4 py-2 rounded-md shadow hover:bg-purple-700 focus:outline-none"
+                >
+                    Search for {data.speciality} on AskAgain
+                </button>
+            </div>
         </div>
-
-        <button type="button" onClick={() => searchDoctor(data.speciality)} class="btn btn-primary mt-2">Search for {data.speciality} on AskAgain</button>
-    </div>
-</div>
+    );
 }

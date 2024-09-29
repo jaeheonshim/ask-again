@@ -13,7 +13,7 @@ const Header = ({ user }) => {
   return (
     <header className="d-flex justify-content-between align-items-center p-3">
       <div className="logo">
-        <h3 style={{ color: "#673AB7", fontWeight: "bold" }}>askAgain</h3>
+        <h3 style={{ color: "#673AB7", fontWeight: "bold", fontSize:"23px" }}>askAgain</h3>
       </div>
       <nav>
         <ul className="d-flex list-unstyled m-0">
